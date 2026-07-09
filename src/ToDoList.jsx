@@ -1,4 +1,4 @@
-function ToDoList() {
+function TodoList() {
     const todoList = [
     {id: 1, title: "review resources"},
     {id: 2, title: "take notes"},
@@ -7,12 +7,10 @@ function ToDoList() {
 
 
     return ( 
-    <>
       <ul>
         {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
       </ul>
-    </>
     );
 }
 
-export default ToDoList;
+export default TodoList;
