@@ -5,7 +5,6 @@ function TodoForm() {
             <input type="text" id="todoTitle" />
             <button type="submit" disabled>Add Todo</button>
         </form>
-
     );
 }
 
