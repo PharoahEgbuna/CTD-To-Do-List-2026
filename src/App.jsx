@@ -3,8 +3,6 @@ import TodoForm from './TodoForm.jsx';
 import './App.css'
 
 function App() {
-  
-  
 
   return (
     <div>
