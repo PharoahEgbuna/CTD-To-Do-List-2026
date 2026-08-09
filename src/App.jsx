@@ -1,5 +1,5 @@
-import TodoList from './features/TodoList/TodoList.jsx';
 import TodoForm from './features/TodoForm.jsx';
+import TodoList from './features/TodoList/TodoList.jsx';
 import './App.css'
 import {useState} from 'react';
   
@@ -10,7 +10,7 @@ function App() {
   function addTodo(todoTitle) {
     let newTodo = {
       id: Date.now(),
-      title: todoTitle,
+      title: todoTitle, 
       isCompleted: false
     };
 
@@ -22,9 +22,8 @@ function App() {
   }
 
   function updateTodo(editedTodo) {
-    const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...todo, title: editedTodo.title} : todo);
+    const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
     setTodoList(updatedTodos);
-
   }
 
   return (

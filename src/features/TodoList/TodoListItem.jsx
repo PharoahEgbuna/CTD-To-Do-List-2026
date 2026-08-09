@@ -1,4 +1,4 @@
-import TextInputWithLabel from '../../shared/TextInputWithLabel.jsx';
+import TextInputWithLabel from '../../shared/TextInputWithLabel.jsx'; 
 import { useState } from 'react';
 
 function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
@@ -29,9 +29,11 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
         <form onSubmit={handleUpdate}>
             {isEditing ? (
                 <>
-                <TextInputWithLabel value={workingTitle} onChange={handleEdit} elementId={`title${todo.id}`} labelText="Title" />
+                <TextInputWithLabel value={workingTitle} onChange={handleEdit} elementId={`title${todo.id}`} labelText="Todo" />
                 <button type="button" onClick={handleCancel}>Cancel</button>
-                <button type="button" onClick={handleUpdate}>Update</button>
+                <button type="button" onClick={handleUpdate} disabled={!workingTitle.trim()}>
+                    Update
+                </button>
                 </> 
             ) : (
                 <>
