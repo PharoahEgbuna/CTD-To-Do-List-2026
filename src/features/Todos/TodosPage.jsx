@@ -67,7 +67,7 @@ export default function TodosPage({token}) {
 
             if (response.ok) {
                 const data = await response.json();
-                setTodoList(prev => prev.map(todo => todo === newTodo ? data : todo))
+                setTodoList(prev => prev.map(todo => todo.id === newTodo.id ? data : todo))
             } else {
                 throw new Error('Failed to add todo')
             }
@@ -78,7 +78,7 @@ export default function TodosPage({token}) {
     }
 
     async function completeTodo(id) {
-        const rollbackTodo = todoList.filter(todo => todo.id === id);
+        let rollback = todoList.find(todo => todo.id == id);
 
         setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
 
@@ -98,13 +98,13 @@ export default function TodosPage({token}) {
             
             }
         } catch(e) {
-            setTodoList((previous) => previous.map(todo => todo.id === id ? {...rollbackTodo} : todo));
+            setTodoList((previous) => previous.map(todo => todo.id === id ? {...rollback} : todo));
             setError(e.message);    
         }
     }
 
     async function updateTodo(editedTodo) {
-        const rollbackTodo = editedTodo;
+        const rollback = editedTodo;
         const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
         setTodoList(updatedTodos);
 
@@ -123,7 +123,7 @@ export default function TodosPage({token}) {
                 throw new Error('Failed to update todo')
             }
         } catch(e) {
-            setTodoList(todoList.map(todo => todo.id === editedTodo.id ? {...rollbackTodo} : todo));
+            setTodoList(todoList.map(todo => todo.id === editedTodo.id ? {...rollback} : todo));
             setError(e.message);
         }
         
