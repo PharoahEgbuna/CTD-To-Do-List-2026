@@ -35,7 +35,7 @@ export default function Logon({onSetEmail, onSetToken}) {
     }
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             {authError && <p>{authError}</p>}
             <label htmlFor='email'>
                 <input
@@ -46,9 +46,8 @@ export default function Logon({onSetEmail, onSetToken}) {
                 required
                 />
             </label>
-            <label>
+            <label htmlFor="password">
                 <input
-                htmlFor="password"
                 id = "password"
                 placeholder="Enter password"
                 value={password}
@@ -56,8 +55,8 @@ export default function Logon({onSetEmail, onSetToken}) {
                 required
                 />
             </label>
-            <button type="submit" onClick={handleSubmit} disabled={isLoggingOn}>
-                {isLoggingOn ? 'Logging in...' : 'Log In'}
+            <button type="submit" disabled={isLoggingOn}>
+                {isLoggingOn ? 'Logging in...' : 'Log On'}
             </button>
         </form>
     )
