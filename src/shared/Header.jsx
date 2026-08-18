@@ -1,4 +1,4 @@
-export default function Header({token, onSetToken, onSetEmail}) {
+export default function Header() {
     return (
         <h1>Todo List</h1>  
     );

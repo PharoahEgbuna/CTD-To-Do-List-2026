@@ -38,23 +38,23 @@ export default function Logon({onSetEmail, onSetToken}) {
         <form onSubmit={handleSubmit}>
             {authError && <p>{authError}</p>}
             <label htmlFor='email'>
-                <input
+            </label>
+            <input
                 id = "email"
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                />
-            </label>
+            />
             <label htmlFor="password">
-                <input
+            </label>
+            <input
                 id = "password"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                />
-            </label>
+            />
             <button type="submit" disabled={isLoggingOn}>
                 {isLoggingOn ? 'Logging in...' : 'Log On'}
             </button>

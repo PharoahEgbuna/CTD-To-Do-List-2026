@@ -28,7 +28,7 @@ export default function TodosPage({token}) {
                     const data = await response.json();
                     setTodoList([...data.tasks])
                 } else if (response.status === 401) {
-                    throw new Error('Unauthorized error')
+                    throw new Error('unauthorized')
                 } else {
                     throw new Error('Generic error')
                 }
@@ -39,7 +39,7 @@ export default function TodosPage({token}) {
             }
         }
 
-        if (token) {
+        if (token.trim()) {
             fetchTodos();
         }
     }, [token])
@@ -80,9 +80,10 @@ export default function TodosPage({token}) {
     async function completeTodo(id) {
         let rollback = todoList.find(todo => todo.id == id);
 
-        setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
-
         try {
+
+            setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
+            
             const response = await fetch(`/api/tasks/${id}`, {
                 method: 'PATCH',
                 headers: {
@@ -104,11 +105,12 @@ export default function TodosPage({token}) {
     }
 
     async function updateTodo(editedTodo) {
-        const rollback = editedTodo;
-        const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
-        setTodoList(updatedTodos);
+        let rollback = todoList.find(todo => todo.id === editedTodo.id);
 
         try {
+            const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
+        
+            setTodoList(updatedTodos);
             const response = await fetch(`/api/tasks/${editedTodo.id}`, {
                 method: 'PATCH',
                 headers: {
