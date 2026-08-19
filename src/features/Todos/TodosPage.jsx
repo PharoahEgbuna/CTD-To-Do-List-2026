@@ -34,7 +34,7 @@ export default function TodosPage({token}) {
                     throw new Error('An error other than unauthorized occured.')
                 }
             } catch (e) {
-                setError(e.message);
+                setError(`Error: ${e.name} | ${e.message}`);
             } finally {
                 setIsTodoListLoading(false);
             }
@@ -69,18 +69,17 @@ export default function TodosPage({token}) {
             if (response.ok) {
                 const data = await response.json();
                 setTodoList(prev => prev.map(todo => todo.id === newTodo.id ? data : todo))
-                setError('');
             } else {
                 setTodoList(prev => prev.filter(todo => todo.id !== newTodo.id));
                 throw new Error('Failed to add todo');
             }
         } catch(e) {
-            setError(e.message);
+            setError(`Error: ${e.name} | ${e.message}`);
         }
     }
 
     async function completeTodo(id) {
-        let rollback = [...todoList];
+        let rollback = todoList.find(todo => todo.id === id);
 
         setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
 
@@ -97,14 +96,14 @@ export default function TodosPage({token}) {
             });
 
             if (!response.ok) {
-                setTodoList(rollback);
+                setTodoList(previous => previous.map(todo => todo.id === id ? {...rollback} : todo));
                 throw new Error('Failed to complete todo.');
             } else {
                 setError('');
             }
 
         } catch(e) {
-            setError(e.message);    
+            setError(`Error: ${e.name} | ${e.message}`);  
         }
     }
 
@@ -135,7 +134,7 @@ export default function TodosPage({token}) {
                 setError('');
             }
         } catch(e) {
-            setError(e.message);
+            setError(`Error: ${e.name} | ${e.message}`);
         }
         
     }
