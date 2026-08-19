@@ -14,9 +14,9 @@ export default function TodosPage({token}) {
 
     useEffect(() => {
         async function fetchTodos() {
+            setIsTodoListLoading(true)
+            
             try {
-                setIsTodoListLoading(true)
-
                 const response = await fetch('/api/tasks?limit=100', {
                     headers: {
                         'X-CSRF-TOKEN': token,
@@ -24,13 +24,14 @@ export default function TodosPage({token}) {
                     credentials: 'include',
                 })
 
+                
                 if (response.ok) {
                     const data = await response.json();
                     setTodoList([...data.tasks])
                 } else if (response.status === 401) {
-                    throw new Error('unauthorized')
+                    throw new Error(`Unauthorized ${response.statusText}`)
                 } else {
-                    throw new Error('Generic error')
+                    throw new Error('An error other than unauthorized occured.')
                 }
             } catch (e) {
                 setError(e.message);
@@ -39,7 +40,7 @@ export default function TodosPage({token}) {
             }
         }
 
-        if (token.trim()) {
+        if (token) {
             fetchTodos();
         }
     }, [token])
@@ -95,7 +96,7 @@ export default function TodosPage({token}) {
             });
 
             if (!response.ok) {
-                setTodoList((previous) => previous.map(todo => todo.id === id ? {...rollback} : todo));
+                setTodoList((previous) => previous.map(todo => todo.id === id ? {rollback} : todo));
                 throw new Error('Failed to complete todo.');
             }
         } catch(e) {
@@ -125,7 +126,7 @@ export default function TodosPage({token}) {
                 throw new Error('Failed to update todo.');
             }
         } catch(e) {
-            setTodoList(todoList.map(todo => todo.id === editedTodo.id ? {...rollback} : todo));
+            setTodoList(todoList.map(todo => todo.id === editedTodo.id ? {rollback} : todo));
             setError(e.message);
         }
         

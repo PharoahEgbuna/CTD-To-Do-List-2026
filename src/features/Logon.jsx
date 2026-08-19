@@ -1,6 +1,6 @@
 import {useState } from 'react';
 
-export default function Logon({onSetEmail, onSetToken}) {
+export default function Logon({onSetToken, onSetEmail}) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
