@@ -79,7 +79,7 @@ export default function TodosPage({token}) {
     }
 
     async function completeTodo(id) {
-        let rollback = todoList.find(todo => todo.id == id);
+        let rollback = todoList;
 
         setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
 
@@ -96,7 +96,7 @@ export default function TodosPage({token}) {
             });
 
             if (!response.ok) {
-                setTodoList((previous) => previous.map(todo => todo.id === id ? {rollback} : todo));
+                setTodoList(rollback);
                 throw new Error('Failed to complete todo.');
             }
         } catch(e) {
@@ -105,7 +105,7 @@ export default function TodosPage({token}) {
     }
 
     async function updateTodo(editedTodo) {
-        let rollback = todoList.find(todo => todo.id === editedTodo.id);
+        let rollback = todoList;
 
         const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
         
@@ -123,10 +123,10 @@ export default function TodosPage({token}) {
             })
 
             if (!response.ok) {
+                setTodoList(rollback);
                 throw new Error('Failed to update todo.');
             }
         } catch(e) {
-            setTodoList(todoList.map(todo => todo.id === editedTodo.id ? {rollback} : todo));
             setError(e.message);
         }
         

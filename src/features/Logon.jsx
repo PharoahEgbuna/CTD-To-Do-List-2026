@@ -23,6 +23,7 @@ export default function Logon({onSetToken, onSetEmail}) {
             if (response.status === 200 && data.name && data.csrfToken) {
                 onSetEmail(data.name);
                 onSetToken(data.csrfToken);
+                setAuthError('');
             } else {
                 setAuthError(`Authentication failed: ${data?.message}` )
             }
@@ -36,19 +37,17 @@ export default function Logon({onSetToken, onSetEmail}) {
 
     return (
         <form onSubmit={handleSubmit}>
-            {authError && <p>{authError}</p>}
-            <label htmlFor='email'>Enter email</label>
+            {authError ? <p>{authError}</p> : null}
+            <label htmlFor='email'>Enter email:</label>
             <input
                 id = "email"
-                placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
             />
-            <label htmlFor="password">Enter password</label>
+            <label htmlFor="password">Enter password:</label>
             <input
                 id = "password"
-                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
