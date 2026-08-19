@@ -23,11 +23,11 @@ export default function TodosPage({token}) {
                     },
                     credentials: 'include',
                 })
-
                 
                 if (response.ok) {
                     const data = await response.json();
                     setTodoList([...data.tasks])
+                    setError('');
                 } else if (response.status === 401) {
                     throw new Error(`Unauthorized ${response.statusText}`)
                 } else {
@@ -69,6 +69,7 @@ export default function TodosPage({token}) {
             if (response.ok) {
                 const data = await response.json();
                 setTodoList(prev => prev.map(todo => todo.id === newTodo.id ? data : todo))
+                setError('');
             } else {
                 setTodoList(prev => prev.filter(todo => todo.id !== newTodo.id));
                 throw new Error('Failed to add todo');
@@ -79,7 +80,7 @@ export default function TodosPage({token}) {
     }
 
     async function completeTodo(id) {
-        let rollback = todoList;
+        let rollback = [...todoList];
 
         setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
 
@@ -98,14 +99,17 @@ export default function TodosPage({token}) {
             if (!response.ok) {
                 setTodoList(rollback);
                 throw new Error('Failed to complete todo.');
+            } else {
+                setError('');
             }
+
         } catch(e) {
             setError(e.message);    
         }
     }
 
     async function updateTodo(editedTodo) {
-        let rollback = todoList;
+        let rollback = [...todoList];
 
         const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
         
@@ -122,9 +126,13 @@ export default function TodosPage({token}) {
                 body: JSON.stringify({title: editedTodo.title, isCompleted: editedTodo.isCompleted})
             })
 
+            
+
             if (!response.ok) {
                 setTodoList(rollback);
                 throw new Error('Failed to update todo.');
+            } else {
+                setError('');
             }
         } catch(e) {
             setError(e.message);

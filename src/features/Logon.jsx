@@ -41,6 +41,7 @@ export default function Logon({onSetToken, onSetEmail}) {
             <label htmlFor='email'>Enter email:</label>
             <input
                 id = "email"
+                type= "email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -48,6 +49,7 @@ export default function Logon({onSetToken, onSetEmail}) {
             <label htmlFor="password">Enter password:</label>
             <input
                 id = "password"
+                type="password "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
