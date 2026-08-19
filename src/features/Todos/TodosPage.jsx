@@ -69,10 +69,10 @@ export default function TodosPage({token}) {
                 const data = await response.json();
                 setTodoList(prev => prev.map(todo => todo.id === newTodo.id ? data : todo))
             } else {
-                throw new Error('Failed to add todo')
+                setTodoList(prev => prev.filter(todo => todo.id !== newTodo.id));
+                throw new Error('Failed to add todo');
             }
         } catch(e) {
-            setTodoList(prev => prev.filter(todo => todo.id !== newTodo.id));
             setError(e.message);
         }
     }
@@ -80,9 +80,9 @@ export default function TodosPage({token}) {
     async function completeTodo(id) {
         let rollback = todoList.find(todo => todo.id == id);
 
-        try {
+        setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
 
-            setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
+        try {
             
             const response = await fetch(`/api/tasks/${id}`, {
                 method: 'PATCH',
@@ -95,11 +95,10 @@ export default function TodosPage({token}) {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to complete todo')
-            
+                setTodoList((previous) => previous.map(todo => todo.id === id ? {...rollback} : todo));
+                throw new Error('Failed to complete todo.');
             }
         } catch(e) {
-            setTodoList((previous) => previous.map(todo => todo.id === id ? {...rollback} : todo));
             setError(e.message);    
         }
     }
@@ -107,10 +106,11 @@ export default function TodosPage({token}) {
     async function updateTodo(editedTodo) {
         let rollback = todoList.find(todo => todo.id === editedTodo.id);
 
-        try {
-            const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
+        const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
         
-            setTodoList(updatedTodos);
+        setTodoList(updatedTodos);
+
+        try {
             const response = await fetch(`/api/tasks/${editedTodo.id}`, {
                 method: 'PATCH',
                 headers: {
@@ -122,7 +122,7 @@ export default function TodosPage({token}) {
             })
 
             if (!response.ok) {
-                throw new Error('Failed to update todo')
+                throw new Error('Failed to update todo.');
             }
         } catch(e) {
             setTodoList(todoList.map(todo => todo.id === editedTodo.id ? {...rollback} : todo));

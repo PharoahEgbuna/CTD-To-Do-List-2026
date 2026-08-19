@@ -37,8 +37,7 @@ export default function Logon({onSetEmail, onSetToken}) {
     return (
         <form onSubmit={handleSubmit}>
             {authError && <p>{authError}</p>}
-            <label htmlFor='email'>
-            </label>
+            <label htmlFor='email'>Enter email</label>
             <input
                 id = "email"
                 placeholder="Enter email"
@@ -46,8 +45,7 @@ export default function Logon({onSetEmail, onSetToken}) {
                 onChange={(e) => setEmail(e.target.value)}
                 required
             />
-            <label htmlFor="password">
-            </label>
+            <label htmlFor="password">Enter password</label>
             <input
                 id = "password"
                 placeholder="Enter password"
