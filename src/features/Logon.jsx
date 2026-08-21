@@ -49,7 +49,7 @@ export default function Logon({onSetToken, onSetEmail}) {
             <label htmlFor="password">Enter password:</label>
             <input
                 id = "password"
-                type="password "
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
