@@ -12,6 +12,7 @@ export default function TodosPage({token}) {
     const [sortBy, setSortBy] = useState('createdAt');
     const [sortDirection, setSortDirection] = useState('desc');
     const [filterTerm, setFilterTerm] = useState('');
+    const [filterError, setFilterError] = useState('');
     const [dataVerison, setDataVersion] = useState(0);
 
     const debouncedFilterTerm = useDebounce(filterTerm, 300);
@@ -22,11 +23,6 @@ export default function TodosPage({token}) {
      }, []);
 
     const handleFilterChange = (newTerm) => {setFilterTerm(newTerm); };
-
-
-    function handleError() {
-        setError('');
-    }
 
     useEffect(() => {
         async function fetchTodos() {
@@ -53,13 +49,18 @@ export default function TodosPage({token}) {
                     const data = await response.json();
                     setTodoList([...data.tasks])
                     setError('');
+                    setFilterError('');
                 } else if (response.status === 401) {
                     throw new Error(`Unauthorized ${response.statusText}`)
                 } else {
                     throw new Error('An error other than unauthorized occured.')
                 }
-            } catch (e) {
-                setError(`Error: ${e.name} | ${e.message}`);
+            } catch (error) {
+                if (debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection != 'desc') {
+                        setFilterError(`Error filtering/sorting todos: ${error.message}`);
+                } else {
+                    setError(`Error fetching todos: ${error.message}`);
+                }
             } finally {
                 setIsTodoListLoading(false);
             }
@@ -69,6 +70,17 @@ export default function TodosPage({token}) {
             fetchTodos();
         }
     }, [token, sortBy, sortDirection, debouncedFilterTerm])
+
+     function handleReset() {
+        setFilterTerm('');
+        setSortBy('createdAt');
+        setSortDirection('desc');
+        setFilterError('');
+    };
+
+    function handleError() {
+        setError('');
+    }
 
 
     async function addTodo(todoTitle) {
@@ -183,6 +195,13 @@ export default function TodosPage({token}) {
       <TodoForm onAddTodo={addTodo} />
 
       <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} dataVersion={dataVerison} />
+      {filterError ? (
+        <div>
+            <p>{filterError}</p>
+            <button onClick={setFilterError('')}>Clear Filter Error</button>
+            <button onClick={handleReset}>Reset Filters</button>
+        </div> 
+      ) : null}
     </div>
     );
 }
