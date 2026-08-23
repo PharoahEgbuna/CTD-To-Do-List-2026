@@ -3,7 +3,7 @@ import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
 import useDebounce from '../../utils/useDebounce.js';
 import FilterInput from '../../shared/FilterInput.jsx'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 
 export default function TodosPage({token}) {
     const [todoList, setTodoList] = useState([]);
@@ -12,7 +12,14 @@ export default function TodosPage({token}) {
     const [sortBy, setSortBy] = useState('createdAt');
     const [sortDirection, setSortDirection] = useState('desc');
     const [filterTerm, setFilterTerm] = useState('');
+    const [dataVerison, setDataVersion] = useState(0);
+
     const debouncedFilterTerm = useDebounce(filterTerm, 300);
+
+     const invalidateCache = useCallback(() => {
+        setDataVersion(prev => prev + 1);
+        console.log("Invalidating memo cache after todo mutation")
+     }, []);
 
     const handleFilterChange = (newTerm) => {setFilterTerm(newTerm); };
 
@@ -87,6 +94,7 @@ export default function TodosPage({token}) {
             if (response.ok) {
                 const data = await response.json();
                 setTodoList(prev => prev.map(todo => todo.id === newTodo.id ? data : todo))
+                invalidateCache();
             } else {
                 setTodoList(prev => prev.filter(todo => todo.id !== newTodo.id));
                 throw new Error('Failed to add todo');
@@ -118,6 +126,7 @@ export default function TodosPage({token}) {
                 throw new Error('Failed to complete todo.');
             } else {
                 setError('');
+                invalidateCache();
             }
 
         } catch(e) {
@@ -150,6 +159,7 @@ export default function TodosPage({token}) {
                 throw new Error('Failed to update todo.');
             } else {
                 setError('');
+                invalidateCache();
             }
         } catch(e) {
             setError(`Error: ${e.name} | ${e.message}`);
@@ -172,7 +182,7 @@ export default function TodosPage({token}) {
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
       <TodoForm onAddTodo={addTodo} />
 
-      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} />
+      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} dataVersion={dataVerison} />
     </div>
     );
 }
