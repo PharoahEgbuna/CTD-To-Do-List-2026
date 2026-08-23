@@ -11,14 +11,14 @@ export default function SortBy({sortBy, sortDirection, onSortByChange, onSortDir
     
     return (
         <div>
-            <label htmlFor={sortBy}>Sort By </label>
-            <select id={sortBy} onChange={handleSort}>
+            <label htmlFor='sortBy'>Sort By </label>
+            <select id='sortBy' value={sortBy} onChange={handleSort}>
                 <option value='createdAt'>Created At</option>
                 <option value='title'>Title</option>
             </select>
 
-            <label htmlFor={sortDirection}>Order </label>
-            <select id={sortDirection} onChange={handleOrder}>
+            <label htmlFor='sortDirection'>Order </label>
+            <select id='sortDirection' value={sortDirection} onChange={handleOrder}>
                 <option value='desc'>Descending</option>
                 <option value='asc'>Ascending</option>
             </select>

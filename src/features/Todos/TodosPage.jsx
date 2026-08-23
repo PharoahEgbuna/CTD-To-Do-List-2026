@@ -13,14 +13,13 @@ export default function TodosPage({token}) {
     const [sortDirection, setSortDirection] = useState('desc');
     const [filterTerm, setFilterTerm] = useState('');
     const [filterError, setFilterError] = useState('');
-    const [dataVerison, setDataVersion] = useState(0);
+    const [dataVersion, setDataVersion] = useState(0);
 
     const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
-     const invalidateCache = useCallback(() => {
+    const invalidateCache = useCallback(() => {
         setDataVersion(prev => prev + 1);
-        console.log("Invalidating memo cache after todo mutation")
-     }, []);
+    }, []);
 
     const handleFilterChange = (newTerm) => {setFilterTerm(newTerm); };
 
@@ -30,15 +29,19 @@ export default function TodosPage({token}) {
             
             try {
 
-                const paramsObject  = new URLSearchParams({
+                const paramsObject  ={
                     sortBy,
                     sortDirection,
-                    limit: 100
-                })
+                    limit: 100,
+                };
 
-                if (debouncedFilterTerm) { paramsObject.find = debouncedFilterTerm}
+                if (debouncedFilterTerm) { 
+                    paramsObject.find = debouncedFilterTerm;
+                }
 
-                const response = await fetch(`/api/tasks?${paramsObject}`, {
+                const params = new URLSearchParams(paramsObject);
+
+                const response = await fetch(`/api/tasks?${params}`, {
                     headers: {
                         'X-CSRF-TOKEN': token,
                     },
@@ -82,6 +85,9 @@ export default function TodosPage({token}) {
         setError('');
     }
 
+    function handleFilterError() {
+        setFilterError('');
+    }
 
     async function addTodo(todoTitle) {
         let newTodo = {
@@ -194,11 +200,11 @@ export default function TodosPage({token}) {
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
       <TodoForm onAddTodo={addTodo} />
 
-      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} dataVersion={dataVerison} />
+      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} dataVersion={dataVersion} />
       {filterError ? (
         <div>
             <p>{filterError}</p>
-            <button onClick={setFilterError('')}>Clear Filter Error</button>
+            <button onClick={handleFilterError}>Clear Filter Error</button>
             <button onClick={handleReset}>Reset Filters</button>
         </div> 
       ) : null}
