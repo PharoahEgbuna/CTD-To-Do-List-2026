@@ -10,7 +10,7 @@ function TodoList({todoList, onCompleteTodo, onUpdateTodo, dataVersion}) {
     }
   }, [todoList, dataVersion]);
 
-    return (todoList.length === 0 ? <p>Add todo above to get started</p> : (
+    return (filteredTodoList.todos.length === 0 ? <p>Add todo above to get started</p> : (
       <ul>
         {filteredTodoList.todos.map(todo => <TodoListItem key={todo.id} todo={todo} onCompleteTodo={onCompleteTodo} onUpdateTodo={onUpdateTodo} />)}
       </ul>

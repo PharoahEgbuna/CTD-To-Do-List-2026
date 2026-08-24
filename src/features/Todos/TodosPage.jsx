@@ -32,6 +32,7 @@ export default function TodosPage({token}) {
                 const paramsObject  ={
                     sortBy,
                     sortDirection,
+                    limit: 100
                 };
 
                 if (debouncedFilterTerm) { 
@@ -50,7 +51,6 @@ export default function TodosPage({token}) {
                 if (response.ok) {
                     const data = await response.json();
                     setTodoList([...data.tasks])
-                    setError('');
                     setFilterError('');
                 } else if (response.status === 401) {
                     throw new Error(`Unauthorized ${response.statusText}`)
@@ -58,8 +58,8 @@ export default function TodosPage({token}) {
                     throw new Error('An error other than unauthorized occured.')
                 }
             } catch (error) {
-                if (debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection != 'desc') {
-                        setFilterError(`Error filtering/sorting todos: ${error.message}`);
+                if (debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
+                    setFilterError(`Error filtering/sorting todos: ${error.message}`);
                 } else {
                     setError(`Error fetching todos: ${error.message}`);
                 }
