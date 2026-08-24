@@ -21,7 +21,7 @@ export default function TodosPage({token}) {
         setDataVersion(prev => prev + 1);
     }, []);
 
-    const handleFilterChange = (newTerm) => {setFilterTerm(newTerm); };
+    const handleFilterChange = ((newTerm) => {setFilterTerm(newTerm); });
 
     useEffect(() => {
         async function fetchTodos() {
@@ -32,7 +32,6 @@ export default function TodosPage({token}) {
                 const paramsObject  ={
                     sortBy,
                     sortDirection,
-                    limit: 100,
                 };
 
                 if (debouncedFilterTerm) { 

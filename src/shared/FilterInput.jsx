@@ -13,7 +13,7 @@ export default function FilterInput({filterTerm, onFilterChange}) {
             id='filterInput'
             type='text'
             value={filterTerm}
-            onChange={onFilterChange(handleFilterChange)}
+            onChange={handleFilterChange}
             placeholder='Search by title...'>
             </input>
         </div>
