@@ -7,12 +7,12 @@ export const TODO_ACTIONS = {
 
     ADD_TODO_START: 'ADD_TODO_START',
     ADD_TODO_SUCCESS: 'ADD_TODO_SUCCESS',
-    ADD_TODO_ERORR: 'ADD_TODO_ERROR',
+    ADD_TODO_ERROR: 'ADD_TODO_ERROR',
 
 
     COMPLETE_TODO_START: 'COMPLETE_TODO_START',
     COMPLETE_TODO_SUCCESS: 'COMPLETE_TODO_SUCCESS',
-    COMPLETE_TODO_ERROR: 'COMPLETE_TODO_FAILURE',
+    COMPLETE_TODO_ERROR: 'COMPLETE_TODO_ERROR',
 
 
     UPDATE_TODO_START: 'UPDATE_TODO_START',
@@ -22,29 +22,21 @@ export const TODO_ACTIONS = {
 
     SET_SORT: 'SET_SORT',
     SET_FILTER: 'SET_FILTER',
+    SET_DATA_VERSION: 'SET_DATA_VERSION',
     CLEAR_ERROR: 'CLEAR_ERROR',
+    CLEAR_FILTER_ERROR: 'CLEAR_FILTER_ERROR',
     RESET_FILTERS: 'RESET_FILTERS'
 };
 
 export const initialTodoState = {
     todoList: [],
-    error: '',
     isTodoListLoading: true,
     sortBy: 'createdAt',
     sortDirection: 'asc',
-    filterTerm: '',
+    error: '',
     filterError: '',
+    filterTerm: '',
     dataVersion: 0,
-    rollback: {
-        todoList: [],
-        error: '',
-        isTodoListLoading: true,
-        sortBy: 'createdAt',
-        sortDirection: 'asc',
-        filterTerm: '',
-        filterError: '',
-        dataVersion: 0,
-    }
 };
 
 export function todoReducer(state, action) {
@@ -60,96 +52,116 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.FETCH_SUCCESS:
             return {
                 ...state,
-                todoList: [...action.tasks], //receives tasks array from payload
+                todoList: [...action.payload.todos], //receives tasks array from payload
                 isTodoListLoading: false,
+                filterError: '',
             };
 
         case TODO_ACTIONS.FETCH_ERROR:
             return {
                 ...state,
-                error: action.message || '', //receives error object from payload, action object receives error message
-                filterError: action.filterMessage || '',
-                isTodoListLoading: false
+                error: action.payload.message,
+                filterError: action.payload.isFilterError,
+                isTodoListLoading: false,
             };
         
-        //Add Todo Cases  
+        //Add Todo Cases     
         case TODO_ACTIONS.ADD_TODO_START:
+            console.log(action.payload.newList)
             return {
                 ...state,
-                todoList: [...action.newTodo, ...initialTodoState.todoList], //receives newTodo from payload
+                todoList: [...action.payload.newList], //from payload
                 error: ''
             };
 
         case TODO_ACTIONS.ADD_TODO_SUCCESS:
+            console.log(action.payload.newList)
             return {
                 ...state,
-                todoList: [...action.todoList, ...initialTodoState.todoList] //receive api todo from payload
+                todoList: [...action.payload.newList], //from payload
             };
 
-        case TODO_ACTIONS.ADD_TODO_ERORR:
+        case TODO_ACTIONS.ADD_TODO_ERROR:
             return {
                 ...state,
-                error: action.error, //receive error from payload
-                todoList: [...action.rollbackList] //receives rollback list from action payload
+                error: action.payload.error, //from payload
+                todoList: [...action.payload.rollback] //from  payload
             };
 
         //Complete Todo Cases 
         case TODO_ACTIONS.COMPLETE_TODO_START:
             return {
                  ...state,
-                 todoList: [action.todoList], //received from payload
+                 todoList: [action.payload.newList], //from payload
                  error: '',
             };
 
         case TODO_ACTIONS.COMPLETE_TODO_SUCCESS:
             return {
-                ...state,
-                todoList: [action.filteredlist], //receive filtered list from payload
+                ...state, //nothing changes if successful
             };
 
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
             return {
                 ...state,
-                todoList: [...action.rollback], //received from payload 
-                error: action.errorMessage //received from payload
+                todoList: [...action.payload.rollback], //received from payload 
+                error: action.payload.error //received from payload
             };
 
         //Update Todo Cases
         case TODO_ACTIONS.UPDATE_TODO_START:
             return {
                 ...state, 
-                todoList: [...action.updatedList], //received from payload
+                todoList: [...action.payload.newList], //received from payload
                 error: ''
             };
 
         case TODO_ACTIONS.UPDATE_TODO_SUCCESS:
             return {
-                ...state,
-                todoList: [...action.updatedApiList], //received from payload
+                ...state,  //nothing changes if successful
+                error: '',
             };
 
         case TODO_ACTIONS.UPDATE_TODO_ERROR:
             return {
                 ...state, 
-                todoList: [...action.rollbackList], //received from payload
-                erorr: action.errorMessage //received from payload
+                todoList: [...action.oayload.rollback], //received from payload
+                erorr: action.payload.error //received from payload
             };
 
-        //Sorting and Error Cases 
+        //Sorting, Data Version and Error Cases 
         case TODO_ACTIONS.SET_SORT:
-             return {
-                ...state,
-                sortBy: action.sortBy || 'createdAt', //received from payload
-                sortDirection: action.sortDirection || 'asc',
+            if (action.payload.newSortBy) {
+                return {
+                    ...state,
+                    sortBy: action.payload.sortBy.newSortBy
+                }
+            } else {
+                return {
+                    ...state, 
+                    sortDirection: action.payload.sortBy.newSortDirection
+                }
             };
 
         case TODO_ACTIONS.SET_FILTER:
              return {
                 ...state,
-                filter: action.filter
+                filter: action.payload.filter
+            };
+        
+        case TODO_ACTIONS.SET_DATA_VERSION:
+            return {
+                ...state,
+                dataVersion: action.payload.newDataVersion
             };
 
         case TODO_ACTIONS.CLEAR_ERROR:
+            return {
+                ...state,
+                error: ''
+            };
+
+        case TODO_ACTIONS.CLEAR_FILTER_ERROR:
             return {
                 ...state,
                 filterError: '',
@@ -158,10 +170,10 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.RESET_FILTERS:
              return {
                 ...state,
-                sortBy: initialTodoState.rollback.sortBy,
-                sortDirection: initialTodoState.rollback.sortDirection,
-                error: '',
-                filterError: '',
+                sortBy: 'createdAt',
+                sortDirection: 'desc',
+                filterTerm: '',
+                filterError: ''
             };
         default:
             throw new Error(`Unknown action type: ${action.type}`);
