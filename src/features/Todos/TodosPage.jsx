@@ -4,19 +4,13 @@ import SortBy from '../../shared/SortBy.jsx';
 import useDebounce from '../../utils/useDebounce.js';
 import FilterInput from '../../shared/FilterInput.jsx';
 import {todoReducer, initialTodoState, TODO_ACTIONS} from '../../reducers/todoReducer.js';
-import {useState, useEffect, useCallback, useReducer} from 'react';
+import {useEffect, useCallback, useReducer} from 'react';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
 
-export default function TodosPage({token}) {
-    // const [todoList, setTodoList] = useState([]);
-    // const [error, setError] = useState('');
-    // const [isTodoListLoading, setIsTodoListLoading] = useState(false);
-    // const [sortBy, setSortBy] = useState('createdAt');
-    // const [sortDirection, setSortDirection] = useState('desc');
-    // const [filterTerm, setFilterTerm] = useState('');
-    // const [filterError, setFilterError] = useState('');
-    // const [dataVersion, setDataVersion] = useState(0);
+export default function TodosPage() {
 
+    const { token } = useAuth(); 
     const [state, dispatch] = useReducer(todoReducer, initialTodoState);
     const {
         todoList, 
@@ -33,7 +27,6 @@ export default function TodosPage({token}) {
 
     useEffect(() => {
         async function fetchTodos() {
-            // setIsTodoListLoading(true)
             dispatch({ type: TODO_ACTIONS.FETCH_START });
             
             try {
@@ -63,8 +56,7 @@ export default function TodosPage({token}) {
                     dispatch({ type: TODO_ACTIONS.FETCH_SUCCESS, 
                         payload: { todos: data.tasks } }
                     );
-                    // setTodoList([...data.tasks])    
-                    // setFilterError('');
+
                 } else if (response.status === 401) {
                     throw new Error(`Unauthorized ${response.statusText}`)
                 } else {
@@ -72,7 +64,6 @@ export default function TodosPage({token}) {
                 }
             } catch (error) {
                 if (debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
-                    // setFilterError(`Error filtering/sorting todos: ${error.message}`);
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
@@ -81,7 +72,6 @@ export default function TodosPage({token}) {
                         }
                     }) 
                 } else {
-                    // setError(`Error fetching todos: ${error.message}`);
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
@@ -90,8 +80,7 @@ export default function TodosPage({token}) {
                         }
                     })               
                 }
-            // } finally {
-            //     setIsTodoListLoading(false);
+
             }
         }
 
@@ -102,7 +91,6 @@ export default function TodosPage({token}) {
 
 
     const handleFilterChange = ((newTerm) =>
-        //{setFilterTerm(newTerm);
         dispatch(
             { 
                 type: TODO_ACTIONS.SET_FILTER,
@@ -115,24 +103,17 @@ export default function TodosPage({token}) {
 
     function handleReset() {
         dispatch({ type: TODO_ACTIONS.RESET_FILTERS })
-        // setFilterTerm('');
-        // setSortBy('createdAt');
-        // setSortDirection('desc');
-        // setFilterError('');
     };
 
     function handleError() {
-        // setError('');
         dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })
     }
 
     function handleFilterError() {
-        // setFilterError('');
         dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })
     }
 
     const invalidateCache = useCallback(() => {
-        // setDataVersion(prev => prev + 1);
         dispatch(
             { 
                 type: TODO_ACTIONS.SET_DATA_VERSION,
@@ -148,11 +129,9 @@ export default function TodosPage({token}) {
         };
 
         
-        // setTodoList((previous) => [newTodo, ...previous]);
         dispatch(
             { type: TODO_ACTIONS.ADD_TODO_START,
                 payload: {
-                    // newList: [newTodo, ...todoList]
                     newTodo
                 }
             }
@@ -170,9 +149,7 @@ export default function TodosPage({token}) {
             })
 
             if (response.ok) {
-                const data = await response.json();
-                // setTodoList(prev => prev.map(todo => todo.id === newTodo.id ? data : todo))
-                
+                const data = await response.json();                
                 dispatch(
                     { type: TODO_ACTIONS.ADD_TODO_SUCCESS,
                         payload: {
@@ -183,11 +160,9 @@ export default function TodosPage({token}) {
                 );
                 invalidateCache();
             } else {
-                // setTodoList(prev => prev.filter(todo => todo.id !== newTodo.id));
                 throw new Error('Failed to add todo');
             }
         } catch(e) {
-            // setError(`Error: ${e.name} | ${e.message}`);
             dispatch(
                 { type: TODO_ACTIONS.ADD_TODO_ERROR,
                     payload: {
@@ -202,7 +177,6 @@ export default function TodosPage({token}) {
     async function completeTodo(id) {
         let rollback = todoList.find(todo => todo.id === id);
 
-        // setTodoList((previous) => previous.map(todo => todo.id === id ? {...todo, isCompleted: true} : todo));
         dispatch(
             {
                 type: TODO_ACTIONS.COMPLETE_TODO_START, 
@@ -223,10 +197,8 @@ export default function TodosPage({token}) {
             });
 
             if (!response.ok) {  
-                // setTodoList(previous => previous.map(todo => todo.id === id ? {...rollback} : todo));
                 throw new Error('Failed to complete todo.');
             } else {
-                // setError('');
                 dispatch (
                     { type: TODO_ACTIONS.COMPLETE_TODO_SUCCESS }
                 );
@@ -234,7 +206,6 @@ export default function TodosPage({token}) {
             }
 
         } catch(e) {
-            // setError(`Error: ${e.name} | ${e.message}`);  
             dispatch(
                 {
                     type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
@@ -249,10 +220,7 @@ export default function TodosPage({token}) {
 
     async function updateTodo(editedTodo) {
         let rollback = todoList;
-
-        // const updatedTodos = todoList.map(todo => todo.id === editedTodo.id ? {...editedTodo} : todo);
         
-        // setTodoList(updatedTodos);
         dispatch( 
             {
                 type: TODO_ACTIONS.UPDATE_TODO_START,
@@ -274,15 +242,12 @@ export default function TodosPage({token}) {
             })
 
             if (!response.ok) {
-                // setTodoList(rollback);
                 throw new Error('Failed to update todo.');
             } else {
-                // setError('');
                 dispatch({ type: TODO_ACTIONS.UPDATE_TODO_SUCCESS })
                 invalidateCache();
             }
         } catch(e) {
-            // setError(`Error: ${e.name} | ${e.message}`);
             dispatch(
                 { 
                     type: TODO_ACTIONS.UPDATE_TODO_ERROR,
