@@ -14,15 +14,8 @@ export default function Logon() {
         setIsLoggingOn(true);
 
         try {
-            // const response = await fetch(`/api/users/logon/`, {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     credentials: 'include',
-            //     body: JSON.stringify({email, password})
-            // });
-            // const data = await response.json();
 
-            const result = login(email, password);
+            const result = await login(email, password);
 
             if (result.success) {
                 setAuthError('');

@@ -4,7 +4,7 @@ export default function Header() {
 
     const { isAuthenticated } = useAuth();
     
-    return (
-        <h1>Todo List</h1>  
-    );
+    if (isAuthenticated) {
+        return (<h1>Todo List</h1>);
+    }
 }

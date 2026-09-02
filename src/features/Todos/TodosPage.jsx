@@ -67,16 +67,14 @@ export default function TodosPage() {
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
-                            message: `Error filtering/sorting todos: ${error.message}`,
-                            isFilterError: true
+                            error: `Error filtering/sorting todos: ${error.message}`,
                         }
                     }) 
                 } else {
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
-                            message: `Error fetching todos: ${error.message}`,
-                            isFilterError: false
+                            filterError: `Error fetching todos: ${error.message}`
                         }
                     })               
                 }
@@ -95,7 +93,7 @@ export default function TodosPage() {
             { 
                 type: TODO_ACTIONS.SET_FILTER,
                 payload: {
-                    filter: newTerm
+                    newTerm
                 }
             }
         )
@@ -153,7 +151,7 @@ export default function TodosPage() {
                 dispatch(
                     { type: TODO_ACTIONS.ADD_TODO_SUCCESS,
                         payload: {
-                            newTodo: data,
+                            apiTodo: data,
                             id: newTodo.id
                         }
                     }
@@ -166,7 +164,6 @@ export default function TodosPage() {
             dispatch(
                 { type: TODO_ACTIONS.ADD_TODO_ERROR,
                     payload: {
-                        id: newTodo.id,
                         error: `Error: ${e.name} | ${e.message}`
                     }
                 }
@@ -175,8 +172,6 @@ export default function TodosPage() {
     }
 
     async function completeTodo(id) {
-        let rollback = todoList.find(todo => todo.id === id);
-
         dispatch(
             {
                 type: TODO_ACTIONS.COMPLETE_TODO_START, 
@@ -210,7 +205,6 @@ export default function TodosPage() {
                 {
                     type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
                     payload: {
-                        rollback,
                         error: `Error: ${e.name} | ${e.message}`
                     }
                 }
@@ -277,17 +271,17 @@ export default function TodosPage() {
             {
                 type: TODO_ACTIONS.SET_SORT,
                 payload: {
-                    sortBy: newSortBy
+                    newSortBy
                 }
 
             }
         )
-      } sortDirection={sortDirection} onSortDirectionChange={(newSortBy) => 
+      } sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
         dispatch(
             {
                 type: TODO_ACTIONS.SET_SORT,
                 payload: {
-                    sortDirection: newSortBy 
+                    newSortDirection 
                 }
             }
         )

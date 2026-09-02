@@ -13,7 +13,7 @@ export default function Logoff() {
         setIsLoggingOut(true);
 
         try {
-            const result = logout(token); 
+            const result = await logout(token); 
 
             if (result.success) {
                 setLogoutError('');
