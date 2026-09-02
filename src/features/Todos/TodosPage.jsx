@@ -68,6 +68,7 @@ export default function TodosPage() {
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
                             message: `Error filtering/sorting todos: ${error.message}`,
+                            isFilterError: true
                         }
                     }) 
                 } else {
@@ -75,6 +76,7 @@ export default function TodosPage() {
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
                             message: `Error fetching todos: ${error.message}`,
+                            isFilterError: false
                         }
                     })               
                 }
@@ -115,9 +117,12 @@ export default function TodosPage() {
         dispatch(
             { 
                 type: TODO_ACTIONS.SET_DATA_VERSION,
+                payload: {
+                    dataVersion
+                }
             }
         )
-    }, []);
+    }, [dataVersion]);
 
     async function addTodo(todoTitle) {
 
@@ -176,7 +181,7 @@ export default function TodosPage() {
     }
 
     async function completeTodo(id) {
-        const rollback = todoList.find(todo => todo.id === id)
+        const rollback = todoList;
 
         dispatch(
             {
@@ -287,9 +292,9 @@ export default function TodosPage() {
       } sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
         dispatch(
             {
-                type: TODO_ACTIONS.SET_SORT,
+                type: TODO_ACTIONS.SET_SORT_DIRECTION,
                 payload: {
-                    sortBy: {newSortDirection, sortBy}
+                    sortDirection: {newSortDirection, sortBy}
                 }
             }
         )
