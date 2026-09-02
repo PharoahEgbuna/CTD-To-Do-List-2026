@@ -6,14 +6,14 @@ export default function Logoff() {
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [logoutError, setLogoutError] = useState('');
 
-    const { token, logout } = useAuth();
+    const { logout } = useAuth();
 
     async function handleSubmit(event) {
         event.preventDefault();
         setIsLoggingOut(true);
 
         try {
-            const result = await logout(token); 
+            const result = await logout(); 
 
             if (result.success) {
                 setLogoutError('');
