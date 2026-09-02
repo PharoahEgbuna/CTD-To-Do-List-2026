@@ -13,21 +13,16 @@ export default function Logon() {
         event.preventDefault();
         setIsLoggingOn(true);
 
-        try {
+        const result = await login(email, password);
 
-            const result = await login(email, password);
-
-            if (result.success) {
-                setAuthError('');
-            } else {
-                throw new Error(result.error);
-            }
-        } catch (error) {
-            setAuthError(`Error: ${error.name} | ${error.message}`);
-        } finally {
-            setIsLoggingOn(false);
+        if (result.success) {
+            setAuthError('');
+        } else {
+            setAuthError(result.error);
         }
-    }
+
+        setIsLoggingOn(false);
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -52,5 +47,5 @@ export default function Logon() {
                 {isLoggingOn ? 'Logging in...' : 'Log On'}
             </button>
         </form>
-    )
+    );
 }

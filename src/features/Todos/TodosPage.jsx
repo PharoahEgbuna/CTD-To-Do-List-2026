@@ -4,7 +4,7 @@ import SortBy from '../../shared/SortBy.jsx';
 import useDebounce from '../../utils/useDebounce.js';
 import FilterInput from '../../shared/FilterInput.jsx';
 import {todoReducer, initialTodoState, TODO_ACTIONS} from '../../reducers/todoReducer.js';
-import {useEffect, useCallback, useReducer, useState} from 'react';
+import {useEffect, useCallback, useReducer} from 'react';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 
 
@@ -12,7 +12,6 @@ export default function TodosPage() {
 
     const { token } = useAuth(); 
     const [state, dispatch] = useReducer(todoReducer, initialTodoState);
-    const [dataVersion, setDataVersion] = useState(0);
     const {
         todoList, 
         isTodoListLoading,
@@ -21,16 +20,17 @@ export default function TodosPage() {
         error, 
         filterError,
         filterTerm,
+        dataVersion
     } = state;
 
     const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
     useEffect(() => {
         async function fetchTodos() {
+            
             dispatch({ type: TODO_ACTIONS.FETCH_START });
             
             try {
-
                 const paramsObject  ={
                     sortBy,
                     sortDirection,
@@ -67,14 +67,14 @@ export default function TodosPage() {
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
-                            messsage: `Error filtering/sorting todos: ${error.message}`,
+                            message: `Error filtering/sorting todos: ${error.message}`,
                         }
                     }) 
                 } else {
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
-                            messsage: `Error fetching todos: ${error.message}`
+                            message: `Error fetching todos: ${error.message}`,
                         }
                     })               
                 }
@@ -111,16 +111,12 @@ export default function TodosPage() {
         dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })
     }
 
-    // const invalidateCache = useCallback(() => {
-    //     dispatch(
-    //         { 
-    //             type: TODO_ACTIONS.SET_DATA_VERSION,
-    //         }
-    //     )
-    // }, []);
-
     const invalidateCache = useCallback(() => {
-        setDataVersion(prev => prev + 1);
+        dispatch(
+            { 
+                type: TODO_ACTIONS.SET_DATA_VERSION,
+            }
+        )
     }, []);
 
     async function addTodo(todoTitle) {
@@ -216,6 +212,7 @@ export default function TodosPage() {
                     type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
                     payload: {
                         error: `Error: ${e.name} | ${e.message}`,
+                        id,
                         rollback
                     }
                 }
@@ -282,7 +279,7 @@ export default function TodosPage() {
             {
                 type: TODO_ACTIONS.SET_SORT,
                 payload: {
-                    newSortBy
+                    sortBy: {newSortBy, sortDirection}
                 }
 
             }
@@ -292,7 +289,7 @@ export default function TodosPage() {
             {
                 type: TODO_ACTIONS.SET_SORT,
                 payload: {
-                    newSortDirection 
+                    sortBy: {newSortDirection, sortBy}
                 }
             }
         )

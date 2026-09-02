@@ -59,7 +59,6 @@ export function todoReducer(state, action) {
             return {
                 ...state, 
                 filterError: action.payload.message,
-                error: '',
                 isTodoListLoading: false
             };
             
@@ -70,7 +69,6 @@ export function todoReducer(state, action) {
                 ...state,
                 todoList: [action.payload.newTodo, ...state.todoList],
                 error: '',
-                rollback: state.todoList
             };
 
         case TODO_ACTIONS.ADD_TODO_SUCCESS:
@@ -89,10 +87,10 @@ export function todoReducer(state, action) {
         //Complete Todo Cases 
         case TODO_ACTIONS.COMPLETE_TODO_START:
             return {
-                 ...state,
-                 todoList: state.todoList.map(todo => todo.id === action.payload.id ?
+                ...state,
+                todoList: state.todoList.map(todo => todo.id === action.payload.id ?
                     {...todo, isCompleted: true} : todo), 
-                 error: '',
+                error: '',
             };
 
         case TODO_ACTIONS.COMPLETE_TODO_SUCCESS:
@@ -103,7 +101,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
             return {
                 ...state,
-                todoList: state.todoList.map(todo => todo.id === action.payload.rollback.id ? 
+                todoList: state.todoList.map(todo => todo.id === action.payload.id ? 
                     action.payload.rollback : todo
                 ),
                 error: action.payload.error,
@@ -135,8 +133,8 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.SET_SORT:
             return {
                 ...state,
-                sortBy: action.payload.newSortBy || state.sortBy,
-                sortDirection: action.payload.newSortDirection || state.sortDirection
+                sortBy: action.payload.sortBy.newSortBy || action.payload.sortBy.sortBy,
+                sortDirection: action.payload.sortBy.newSortDirection || action.payload.sortBy.sortDirection
             };
 
         case TODO_ACTIONS.SET_FILTER:
@@ -145,11 +143,11 @@ export function todoReducer(state, action) {
                 filterTerm: action.payload.newTerm
             };
         
-        // case TODO_ACTIONS.SET_DATA_VERSION:
-        //     return {
-        //         ...state,
-        //         dataVersion: state.dataVersion + 1
-        //     };
+        case TODO_ACTIONS.SET_DATA_VERSION:
+            return {
+                ...state,
+                dataVersion: state.dataVersion + 1
+            };
 
         case TODO_ACTIONS.CLEAR_ERROR:
             return {

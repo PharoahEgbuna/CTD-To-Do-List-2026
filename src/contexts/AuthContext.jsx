@@ -49,7 +49,7 @@ export function AuthProvider({ children }) {
     if (!token) {
         setEmail('');
         setToken('');
-        return { success: true }
+        return { success: false }
     }
 
     try {
@@ -61,18 +61,25 @@ export function AuthProvider({ children }) {
             }
         };
 
-        const res = await fetch('/api/user/logoff', options);
+        const res = await fetch('/api/users/logoff', options);
 
         if (res.status === 200) {
+
           setEmail('');
           setToken('');
           return { success: true }
+        
         } else {
-            throw new Error();  
+
+          setEmail('');
+          setToken('');
+          return {
+            success: false,
+            error: 'Logout failed'
+          } 
+        
         } 
     } catch(error) {
-      setEmail('');
-      setToken('');
       return {
           success: false, 
           error: 'Network error during logout'   

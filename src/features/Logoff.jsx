@@ -3,29 +3,25 @@ import { useState } from 'react';
 
 export default function Logoff() {
 
+    const { logout } = useAuth();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [logoutError, setLogoutError] = useState('');
-
-    const { logout } = useAuth();
 
     async function handleSubmit(event) {
         event.preventDefault();
         setIsLoggingOut(true);
+        
+        const result = await logout(); 
 
-        try {
-            const result = await logout(); 
-
-            if (result.success) {
-                setLogoutError('');
-            } else {
-                throw new Error(result.error)
-            }
-        } catch(error) {
-            setLogoutError(`Error: ${error.name} | ${error.message}`);
-        } finally {
-            setIsLoggingOut(false);
+        if (result.success) {
+            setLogoutError('');
+        } else {
+            setLogoutError(result.error);
         }
-    }
+        
+        setIsLoggingOut(false);
+        
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -34,5 +30,5 @@ export default function Logoff() {
                 {isLoggingOut ? 'Logging out...' : 'Log Out'}
             </button>
         </form>
-    )
+    );
 }
