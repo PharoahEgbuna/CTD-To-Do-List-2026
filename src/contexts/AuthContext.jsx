@@ -50,8 +50,7 @@ export function AuthProvider({ children }) {
         setEmail('');
         setToken('');
         return {
-          error: 'No token error.',
-          success: true
+          error: 'No token error.'
         }
     }
 
@@ -67,7 +66,7 @@ export function AuthProvider({ children }) {
         const res = await fetch('/api/users/logoff', options);
         const data = await res.json();
 
-        if (res.status === 200) {
+        if (res.status === 200 && data.name) {
           setEmail('');
           setToken('');
           return { success: true }

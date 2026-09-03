@@ -70,7 +70,7 @@ export default function TodosPage() {
                             message: `Error filtering/sorting todos: ${error.message}`,
                             isFilterError: true
                         }
-                    }) 
+                    }); 
                 } else {
                     dispatch({
                         type: TODO_ACTIONS.FETCH_ERROR,
@@ -78,9 +78,8 @@ export default function TodosPage() {
                             message: `Error fetching todos: ${error.message}`,
                             isFilterError: false
                         }
-                    })               
+                    });               
                 }
-
             }
         }
 
@@ -118,7 +117,7 @@ export default function TodosPage() {
             { 
                 type: TODO_ACTIONS.SET_DATA_VERSION,
                 payload: {
-                    dataVersion
+                    dataVersion: dataVersion + 1
                 }
             }
         )
@@ -224,13 +223,14 @@ export default function TodosPage() {
     }
 
     async function updateTodo(editedTodo) {
-        const rollback = [...todoList];
+        const rollback = todoList.find(todo => todo.id === editedTodo.id);
         
         dispatch( 
             {
                 type: TODO_ACTIONS.UPDATE_TODO_START,
                 payload: { 
-                    editedTodo
+                    editedTodo,
+                    id: editedTodo.id
                 }
             }
         );
@@ -257,7 +257,8 @@ export default function TodosPage() {
                 { 
                     type: TODO_ACTIONS.UPDATE_TODO_ERROR,
                     payload: {
-                        error: `Error: ${e.name} | ${e.message}`, 
+                        error: `Error: ${e.name} | ${e.message}`,
+                        id: editedTodo.id,
                         rollback
                     }
                 }
@@ -278,24 +279,15 @@ export default function TodosPage() {
       { isTodoListLoading ? (<p>{`Loading...`}</p> ) : null }
 
       <SortBy sortBy={sortBy} onSortByChange={(newSortBy) =>
-        dispatch(
-            {
-                type: TODO_ACTIONS.SET_SORT,
-                payload: {
-                    sortBy: {newSortBy, sortDirection}
-                }
-
-            }
-        )
+        dispatch({
+            type: TODO_ACTIONS.SET_SORT,
+            payload: {sortBy: newSortBy, sortDirection}
+        })
       } sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
-        dispatch(
-            {
-                type: TODO_ACTIONS.SET_SORT,
-                payload: {
-                    sortDirection: {newSortDirection, sortBy}
-                }
-            }
-        )
+        dispatch({
+            type: TODO_ACTIONS.SET_SORT,
+            payload: {sortDirection: newSortDirection, sortBy}
+        })
       }/>
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
       <TodoForm onAddTodo={addTodo} />
