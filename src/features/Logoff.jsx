@@ -20,7 +20,6 @@ export default function Logoff() {
         }
         
         setIsLoggingOut(false);
-        
     };
 
     return (

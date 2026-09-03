@@ -104,7 +104,7 @@ export function todoReducer(state, action) {
 
         case TODO_ACTIONS.COMPLETE_TODO_SUCCESS:
             return {
-                ...state, //nothing changes if successful
+                state,
             };
 
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
@@ -129,7 +129,7 @@ export function todoReducer(state, action) {
 
         case TODO_ACTIONS.UPDATE_TODO_SUCCESS:
             return {
-                ...state
+                state
             };
 
         case TODO_ACTIONS.UPDATE_TODO_ERROR:
@@ -142,17 +142,17 @@ export function todoReducer(state, action) {
 
         //Sorting, Data Version and Error Cases 
         case TODO_ACTIONS.SET_SORT:
-            if (action.payload.sortBy) {
+            if (action.payload.newSortBy) {
                 return {
                     ...state,
-                    sortBy: action.payload.sortBy,
+                    sortBy: action.payload.newSortBy,
                     sortDirection: action.payload.sortDirection
                 }
             } else {
                 return {
                     ...state,
+                    sortDirection: action.payload.newSortDirection,
                     sortBy: action.payload.sortBy,
-                    sortDirection: action.payload.newSortDirection
                 }
             };
 
@@ -160,7 +160,8 @@ export function todoReducer(state, action) {
              return {
                 ...state,
                 filterTerm: action.payload.newTerm, 
-                filterError: ''
+                filterError: '',
+                error: ''
             };
         
         case TODO_ACTIONS.SET_DATA_VERSION:
@@ -188,6 +189,8 @@ export function todoReducer(state, action) {
                 sortDirection: 'asc',
                 filterTerm: '',
                 filterError: '',
+                error: '',
+                dataVersion: 0,
             };
 
         default:

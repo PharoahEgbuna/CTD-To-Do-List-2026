@@ -68,7 +68,7 @@ export default function TodosPage() {
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
                             message: `Error filtering/sorting todos: ${error.message}`,
-                            isFilterError: true
+                            isFilterError: false
                         }
                     }); 
                 } else {
@@ -76,7 +76,7 @@ export default function TodosPage() {
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
                             message: `Error fetching todos: ${error.message}`,
-                            isFilterError: false
+                            isFilterError: true
                         }
                     });               
                 }
@@ -281,12 +281,12 @@ export default function TodosPage() {
       <SortBy sortBy={sortBy} onSortByChange={(newSortBy) =>
         dispatch({
             type: TODO_ACTIONS.SET_SORT,
-            payload: {sortBy: newSortBy, sortDirection}
+            payload: {newSortBy, sortDirection}
         })
       } sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
         dispatch({
             type: TODO_ACTIONS.SET_SORT,
-            payload: {sortDirection: newSortDirection, sortBy}
+            payload: {newSortDirection, sortBy}
         })
       }/>
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
