@@ -50,7 +50,8 @@ export function AuthProvider({ children }) {
         setEmail('');
         setToken('');
         return {
-          error: 'No token error.'
+          error: 'No token error.',
+          success: true
         }
     }
 

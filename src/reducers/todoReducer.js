@@ -104,7 +104,7 @@ export function todoReducer(state, action) {
 
         case TODO_ACTIONS.COMPLETE_TODO_SUCCESS:
             return {
-                state,
+                ...state,
             };
 
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
@@ -129,7 +129,7 @@ export function todoReducer(state, action) {
 
         case TODO_ACTIONS.UPDATE_TODO_SUCCESS:
             return {
-                state
+                ...state
             };
 
         case TODO_ACTIONS.UPDATE_TODO_ERROR:
@@ -185,11 +185,12 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.RESET_FILTERS:
              return {
                 ...state,
+                  isTodoListLoading: true,
                 sortBy: 'createdAt',
                 sortDirection: 'asc',
-                filterTerm: '',
-                filterError: '',
                 error: '',
+                filterError: '',
+                filterTerm: '',
                 dataVersion: 0,
             };
 

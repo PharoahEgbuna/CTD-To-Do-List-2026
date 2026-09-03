@@ -68,7 +68,7 @@ export default function TodosPage() {
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
                             message: `Error filtering/sorting todos: ${error.message}`,
-                            isFilterError: false
+                            isFilterError: true
                         }
                     }); 
                 } else {
@@ -76,7 +76,7 @@ export default function TodosPage() {
                         type: TODO_ACTIONS.FETCH_ERROR,
                         payload: {
                             message: `Error fetching todos: ${error.message}`,
-                            isFilterError: true
+                            isFilterError: false
                         }
                     });               
                 }
