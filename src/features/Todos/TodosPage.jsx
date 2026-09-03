@@ -117,16 +117,12 @@ export default function TodosPage() {
         dispatch(
             { 
                 type: TODO_ACTIONS.SET_DATA_VERSION,
-                payload: {
-                    dataVersion
-                }
             }
         )
-    }, [dataVersion]);
+    }, []);
 
     async function addTodo(todoTitle) {
-
-        const rollback = todoList
+        const rollback = [...todoList];
 
         let newTodo = {
         id: Date.now(),
@@ -181,7 +177,7 @@ export default function TodosPage() {
     }
 
     async function completeTodo(id) {
-        const rollback = todoList;
+        const rollback = todoList.find(todo => todo.id === id);
 
         dispatch(
             {
@@ -226,7 +222,7 @@ export default function TodosPage() {
     }
 
     async function updateTodo(editedTodo) {
-        let rollback = todoList;
+        const rollback = [...todoList];
         
         dispatch( 
             {

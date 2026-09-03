@@ -53,6 +53,8 @@ export function todoReducer(state, action) {
                 ...state,
                 todoList: [...action.payload.todos],
                 isTodoListLoading: false,
+                error: '',
+                filterError: '',
             };
 
         case TODO_ACTIONS.FETCH_ERROR:
@@ -87,8 +89,8 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.ADD_TODO_ERROR:
             return {
                 ...state,
+                todoList: action.payload.rollback,
                 error: action.payload.error,
-                todoList: action.payload.rollback
             };
 
         //Complete Todo Cases 
@@ -131,15 +133,25 @@ export function todoReducer(state, action) {
             return {
                 ...state, 
                 todoList: action.payload.rollback, 
-                error: action.payload.error,
+                error: state.todoList.map(todo => todo.id === action.payload.id ? 
+                    action.payload.rollback : todo
+                ),
             };
 
         //Sorting, Data Version and Error Cases 
         case TODO_ACTIONS.SET_SORT:
-            return {
-                ...state,
-                sortBy: action.payload.sortBy.newSortBy,
-                sortDirection: action.payload.sortBy.sortDirection
+            if (action.payload.sortBy) {
+                return {
+                    ...state,
+                    sortBy: action.payload.sortBy.newSortBy,
+                    sortDirection: action.payload.sortBy.sortDirection
+                }
+            } else {
+                return {
+                    ...state,
+                    sortBy: action.payload.sortDirection.sortBy,
+                    sortDirection: action.payload.sortDirection.newSortDirection
+                }
             };
         
         case TODO_ACTIONS.SET_SORT_DIRECTION:
@@ -158,7 +170,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.SET_DATA_VERSION:
             return {
                 ...state,
-                dataVersion: action.payload.dataVersion + 1
+                dataVersion: state.dataVersion + 1
             };
 
         case TODO_ACTIONS.CLEAR_ERROR:

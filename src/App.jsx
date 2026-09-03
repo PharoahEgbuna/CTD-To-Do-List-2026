@@ -6,7 +6,7 @@ import { useAuth } from './contexts/AuthContext.jsx';
   
 function App() {
 
-  let { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <div>
