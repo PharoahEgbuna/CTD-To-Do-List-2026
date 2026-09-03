@@ -49,7 +49,10 @@ export function AuthProvider({ children }) {
     if (!token) {
         setEmail('');
         setToken('');
-        return;
+        return {
+          error: 'No token error.',
+          success: true
+        }
     }
 
     try {
@@ -64,7 +67,7 @@ export function AuthProvider({ children }) {
         const res = await fetch('/api/users/logoff', options);
         const data = await res.json();
 
-        if (res.status === 200 && data.name && data.csrfToken) {
+        if (res.status === 200) {
           setEmail('');
           setToken('');
           return { success: true }

@@ -89,7 +89,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.ADD_TODO_ERROR:
             return {
                 ...state,
-                todoList: action.payload.rollback,
+                todoList: state.todoList.filter(todo => todo.id !== action.payload.id),
                 error: action.payload.error,
             };
 
@@ -110,7 +110,10 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
             return {
                 ...state,
-                todoList: action.payload.rollback,
+                todoList: state.todoList.map(todo => 
+                    todo.id === action.payload.id ? 
+                    action.payload.rollback : todo
+                ),
                 error: action.payload.error,
             };
 
@@ -133,9 +136,7 @@ export function todoReducer(state, action) {
             return {
                 ...state, 
                 todoList: action.payload.rollback, 
-                error: state.todoList.map(todo => todo.id === action.payload.id ? 
-                    action.payload.rollback : todo
-                ),
+                error: action.payload.error
             };
 
         //Sorting, Data Version and Error Cases 
@@ -153,13 +154,6 @@ export function todoReducer(state, action) {
                     sortDirection: action.payload.sortDirection.newSortDirection
                 }
             };
-        
-        case TODO_ACTIONS.SET_SORT_DIRECTION:
-            return {
-                ...state,
-                sortBy: action.payload.sortDirection.sortBy,
-                sortDirection: action.payload.sortDirection.newSortDirection
-            };
 
         case TODO_ACTIONS.SET_FILTER:
              return {
@@ -170,7 +164,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.SET_DATA_VERSION:
             return {
                 ...state,
-                dataVersion: state.dataVersion + 1
+                dataVersion: action.payload.dataVersion + 1
             };
 
         case TODO_ACTIONS.CLEAR_ERROR:

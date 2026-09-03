@@ -117,12 +117,14 @@ export default function TodosPage() {
         dispatch(
             { 
                 type: TODO_ACTIONS.SET_DATA_VERSION,
+                payload: {
+                    dataVersion
+                }
             }
         )
-    }, []);
+    }, [dataVersion]);
 
     async function addTodo(todoTitle) {
-        const rollback = [...todoList];
 
         let newTodo = {
         id: Date.now(),
@@ -169,7 +171,7 @@ export default function TodosPage() {
                 { type: TODO_ACTIONS.ADD_TODO_ERROR,
                     payload: {
                         error: `Error: ${e.name} | ${e.message}`,
-                        rollback
+                        id: newTodo.id
                     }
                 }
             );
@@ -288,7 +290,7 @@ export default function TodosPage() {
       } sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
         dispatch(
             {
-                type: TODO_ACTIONS.SET_SORT_DIRECTION,
+                type: TODO_ACTIONS.SET_SORT,
                 payload: {
                     sortDirection: {newSortDirection, sortBy}
                 }
