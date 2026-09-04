@@ -115,13 +115,10 @@ export default function TodosPage() {
     const invalidateCache = useCallback(() => {
         dispatch(
             { 
-                type: TODO_ACTIONS.SET_DATA_VERSION,
-                payload: {
-                    dataVersion: dataVersion + 1
-                }
+                type: TODO_ACTIONS.SET_DATA_VERSION
             }
         )
-    }, [dataVersion]);
+    }, []);
 
     async function addTodo(todoTitle) {
 
@@ -179,8 +176,7 @@ export default function TodosPage() {
 
     async function completeTodo(id) {
         const rollback = todoList.find(todo => todo.id === id);
-
-        dispatch(
+        dispatch (
             {
                 type: TODO_ACTIONS.COMPLETE_TODO_START, 
                 payload: { id }
@@ -198,12 +194,12 @@ export default function TodosPage() {
                 credentials: 'include',
                 body: JSON.stringify({isCompleted: true})
             });
-
+            
             if (!response.ok) {  
                 throw new Error('Failed to complete todo.');
             } else {
                 dispatch (
-                    { type: TODO_ACTIONS.COMPLETE_TODO_SUCCESS }
+                    { type: TODO_ACTIONS.COMPLETE_TODO_SUCCESS, }
                 );
                 invalidateCache();
             }

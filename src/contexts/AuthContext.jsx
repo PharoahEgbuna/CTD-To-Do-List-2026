@@ -60,14 +60,15 @@ export function AuthProvider({ children }) {
         const options = {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': token
-            }
+              'Content-Type': 'application/json', 
+              'X-CSRF-TOKEN': token
+            },
+            credentials: 'include',
         };
 
         const res = await fetch('/api/users/logoff', options);
-        const data = await res.json();
 
-        if (res.status === 200 && data.name) {
+        if (res.status === 200) {
           setEmail('');
           setToken('');
           return { success: true }
