@@ -1,11 +1,11 @@
-import TodoForm from './TodoForm.jsx' 
-import TodoList from './TodoList/TodoList.jsx';
-import SortBy from '../../shared/SortBy.jsx';
-import useDebounce from '../../utils/useDebounce.js';
-import FilterInput from '../../shared/FilterInput.jsx';
-import {todoReducer, initialTodoState, TODO_ACTIONS} from '../../reducers/todoReducer.js';
+import TodoForm from '../features/Todos/TodoForm.jsx' 
+import TodoList from '../features/Todos/TodoList/TodoList.jsx';
+import SortBy from '../shared/SortBy.jsx';
+import useDebounce from '../utils/useDebounce.js';
+import FilterInput from '../shared/FilterInput.jsx';
+import {todoReducer, initialTodoState, TODO_ACTIONS} from '../reducers/todoReducer.js';
 import {useEffect, useCallback, useReducer} from 'react';
-import { useAuth } from '../../contexts/AuthContext.jsx';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 
 export default function TodosPage() {
