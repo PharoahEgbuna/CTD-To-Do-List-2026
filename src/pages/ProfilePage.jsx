@@ -3,42 +3,69 @@ import { useState, useEffect } from 'react';
 
 export default function ProfilePage() {
 
-    const { user, token } = useAuth();
-    const [profileData, setProfileData] = useState(null);
+    const { token } = useAuth();
+    const [todoStats, setTodoStats] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        async function fetchUserProfile() {
+        async function fetchTodoStats() {
+            if (!token) return;
+
             try {
-                const response = await fetch('/api/profile', {
+                setLoading(true);
+                setError('');
+
+                const options = {
+                    method: 'GET',
                     headers: {
                         'X-CSRF-TOKEN': token,
                     },
                     credentials: 'include',
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setProfileData(data);
-                } else {
-                    throw new Error('Failed to fetch user profile');
+                };
+
+                const response = await fetch('/api/tasks', options);
+
+                if (response.status === 401) {
+                    throw new Error('Unauthorized.');
                 }
-            } catch (error) {
-                console.error('Error fetching user profile:', error);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch todos.');
+                }
+
+                const todos = await response.json();
+
+                const total = todos.tasks.length;
+
+                const completed = todos.tasks.filter((todo) => todo.isCompleted).length;
+                const active = total - completed;
+
+                setTodoStats({total, completed, active});
+            } catch (err) {
+                setError(`Error loading statistics: ${err.message}`);
+            } finally {
+                setLoading(false);
             }
         }
         
-        if (token) {
-            fetchUserProfile();
-        }
+        fetchTodoStats();
     }, [token]);
 
     return (
         <div>
-            <h1>Profile</h1>
-            <p>Welcome, {user?.name}!</p>
-            <p>Total tasks: {profileData?.totalTasks}</p>
-            <p>Completed tasks: {profileData?.completedTasks}</p>
-            <p>Active tasks: {profileData?.totalTasks - profileData?.completedTasks}</p>
+            {loading && <p>Loading todo stats...</p>}
+            {error && <p>Error: {error}</p>}
+            {!loading && !error && (
+                <div>
+                    <h1>Profile</h1>
+                    <p>Welcome, user!</p>
+                    <p>Total tasks: {todoStats.total}</p>
+                    <p>Completed tasks: {todoStats.completed}</p>
+                    <p>Active tasks: {todoStats.active}</p>
+                </div>
+            )}
         </div>
-    )
+    );
 }
