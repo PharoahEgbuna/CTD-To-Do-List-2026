@@ -6,7 +6,6 @@ function StatusFilter() {
 
   const handleStatusChange = (status) => {
     if (status === 'all') {
-      // Remove status param for 'all' to keep URL clean
       searchParams.delete('status');
     } else {
       searchParams.set('status', status);

@@ -12,7 +12,6 @@ function navLinkStyle (isActive) {
             }
         );
     } else {
-        console.log(isActive);
         return (
             {
                 fontWeight: 'normal',
