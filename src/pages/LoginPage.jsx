@@ -22,6 +22,7 @@ export default function LoginPage() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setIsLoggingOn(true);
 
         const result = await login(email, password);
 
@@ -30,7 +31,6 @@ export default function LoginPage() {
         } else {
             setAuthError(result.error);
         }
-
         setIsLoggingOn(false);
     }
 

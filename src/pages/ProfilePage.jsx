@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function ProfilePage() {
 
-    const { email, token } = useAuth();
+    const { email, token, isAuthenticated } = useAuth();
     const [todoStats, setTodoStats] = useState({total: 0, completed: 0, active: 0});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -32,8 +32,6 @@ export default function ProfilePage() {
 
                 const response = await fetch(`/api/tasks?${params}`, options);
 
-                console.log(response); // Log the response to the console for debugging
-
                 if (response.status === 401) {
                     throw new Error('Unauthorized');
                 }
@@ -42,11 +40,11 @@ export default function ProfilePage() {
                     throw new Error('Failed to fetch todos');
                 }
 
-                const todos = await response.json();
+                const data = await response.json();
+                const todos = data.tasks;
 
-                console.log(todos); // Log the todos to the console for debugging
-                const total = todos.tasks.length;
-                const completed = todos.tasks.filter((todo) => todo.isCompleted).length;
+                const total = todos.length;
+                const completed = todos.filter((todo) => todo.isCompleted).length;
                 const active = total - completed;
 
                 setTodoStats({ total, completed, active });
@@ -76,6 +74,7 @@ export default function ProfilePage() {
                 <div>
                     <h1>Profile</h1>
                     <p>Welcome, {email || 'User'}!</p>
+                    <p>Status: {isAuthenticated ? 'Authenticated' : 'Not Authenticated'}</p>
                     <section>
                         <div>
                             <h2>Todo Statistics</h2>
@@ -90,6 +89,10 @@ export default function ProfilePage() {
                             <article>
                                 <h3>Active Tasks</h3>
                                 <p>{todoStats.active}</p>
+                            </article>
+                            <article>
+                                <h3>Completion Rate</h3>
+                                <p>{todoStats.total > 0 ? `${((todoStats.completed / todoStats.total) * 100).toFixed(2)}%` : 'N/A'}</p>
                             </article>
                         </div>
                     </section>
