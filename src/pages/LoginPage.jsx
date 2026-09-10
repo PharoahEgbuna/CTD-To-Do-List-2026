@@ -28,6 +28,7 @@ export default function LoginPage() {
 
         if (result.success) {
             setAuthError('');
+            navigate(from, { replace: true });
         } else {
             setAuthError(result.error);
         }

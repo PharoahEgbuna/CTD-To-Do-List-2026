@@ -6,10 +6,21 @@ export default function NotFoundPage() {
     <div>
       <h1>404 - Page Not Found</h1>
       <p>The page you are looking for does not exist.</p>
-        <Link to="/">Return to Home</Link>
-        <Link to="/about">Return to About</Link>
-        <Link to="/todos">Return to Todo List</Link>
-        <Link to="/profile">Return to Profile</Link>
+      <section>
+        <div>
+          <h2>Navigate App</h2>
+          <p>Use the links below to navigate to different pages:</p>
+          <article>
+            <b><Link to="/">Return to Home</Link></b>
+          </article>
+          <article>
+            <b><Link to="/login">Go to Login</Link></b>
+          </article>
+          <article>
+            <b><Link to="/profile">Go to Profile</Link></b>
+          </article>
+        </div>
+      </section>
     </div>
   );
 }

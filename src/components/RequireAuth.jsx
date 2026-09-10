@@ -13,10 +13,5 @@ export default function RequireAuth({ children }) {
         }
     }, [isAuthenticated, navigate, location]);
 
-    return (
-        <div>
-            {!isAuthenticated && <p>Redirecting to login...</p>}
-            {isAuthenticated && children}
-        </div>
-    );
+    return !isAuthenticated ? <p>Redirecting to login...</p> : children;
 }
