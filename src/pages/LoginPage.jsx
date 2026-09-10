@@ -17,8 +17,6 @@ export default function LoginPage() {
     useEffect(() => { 
         if (isAuthenticated) {
             navigate(from, { replace: true });
-        } else {
-            navigate('/login', { replace: true });
         }
     }, [isAuthenticated, navigate, from]);
 

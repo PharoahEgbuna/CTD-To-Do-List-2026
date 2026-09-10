@@ -36,15 +36,23 @@ export default function Navigation() {
                     padding: 0
                 }
             }>
-                <NavLink to="/about" style={({ isActive }) => navLinkStyle(isActive)}>About</NavLink>
+                <li>
+                    <NavLink to="/about" style={({ isActive }) => navLinkStyle(isActive)}>About</NavLink>
+                </li>
                 { isAuthenticated && (
-                    <NavLink to="/todos" style={({ isActive }) => navLinkStyle(isActive)}>Todos</NavLink>
+                    <li>
+                        <NavLink to="/todos" style={({ isActive }) => navLinkStyle(isActive)}>Todos</NavLink>
+                    </li>
                 )}
                 { isAuthenticated && (
-                    <NavLink to="/profile" style={({ isActive }) => navLinkStyle(isActive)}>Profile</NavLink>
+                    <li>
+                        <NavLink to="/profile" style={({ isActive }) => navLinkStyle(isActive)}>Profile</NavLink>
+                    </li>
                 )}
                 { !isAuthenticated && (
-                    <NavLink to="/login" style={({ isActive }) => navLinkStyle(isActive)}>Login</NavLink>
+                    <li>
+                        <NavLink to="/login" style={({ isActive }) => navLinkStyle(isActive)}>Login</NavLink>
+                    </li>
                 )}
             </ul>
         </nav>
