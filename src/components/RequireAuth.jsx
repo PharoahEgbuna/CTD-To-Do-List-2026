@@ -1,6 +1,6 @@
 import {useLocation, useNavigate} from 'react-router';
 import {useAuth} from '../contexts/AuthContext.jsx';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 export default function RequireAuth({ children }) {
     const { isAuthenticated } = useAuth();

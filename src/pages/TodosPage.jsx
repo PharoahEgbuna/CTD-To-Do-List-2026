@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router';
+import {useSearchParams} from 'react-router';
 import StatusFilter from '../shared/StatusFilter';
 import TodoForm from '../features/Todos/TodoForm.jsx' 
 import TodoList from '../features/Todos/TodoList/TodoList.jsx';
@@ -7,7 +7,7 @@ import useDebounce from '../utils/useDebounce.js';
 import FilterInput from '../shared/FilterInput.jsx';
 import {todoReducer, initialTodoState, TODO_ACTIONS} from '../reducers/todoReducer.js';
 import {useEffect, useCallback, useReducer} from 'react';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import {useAuth} from '../contexts/AuthContext.jsx';
 
 
 export default function TodosPage() {
@@ -38,7 +38,8 @@ export default function TodosPage() {
                 const paramsObject  ={
                     sortBy,
                     sortDirection,
-                    limit: 100
+                    limit: 100,
+                    status: statusFilter
                 };
 
                 if (debouncedFilterTerm) { 
@@ -90,7 +91,7 @@ export default function TodosPage() {
         if (token) {
             fetchTodos();
         }
-    }, [token, sortBy, sortDirection, debouncedFilterTerm]);
+    }, [token, sortBy, sortDirection, debouncedFilterTerm, statusFilter]);
 
 
     const handleFilterChange = ((newTerm) =>

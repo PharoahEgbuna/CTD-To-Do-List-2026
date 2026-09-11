@@ -1,5 +1,5 @@
-import { useAuth } from '../contexts/AuthContext.jsx';
-import { useState, useEffect } from 'react';
+import {useAuth} from '../contexts/AuthContext.jsx';
+import {useState, useEffect} from 'react';
 
 export default function ProfilePage() {
 
@@ -17,11 +17,6 @@ export default function ProfilePage() {
                 setLoading(true);
                 setError('');
 
-                const paramsObject = {
-                    limit: 100
-                }
-                const params = new URLSearchParams(paramsObject);
-
                 const options = {
                     method: 'GET',
                     headers: { 
@@ -30,7 +25,7 @@ export default function ProfilePage() {
                     credentials: 'include',
                 };
 
-                const response = await fetch(`/api/tasks?${params}`, options);
+                const response = await fetch(`/api/tasks`, options);
 
                 if (response.status === 401) {
                     throw new Error('Unauthorized');
@@ -41,13 +36,31 @@ export default function ProfilePage() {
                 }
 
                 const data = await response.json();
-                const todos = data.tasks;
 
-                const total = todos.length;
-                const completed = todos.filter((todo) => todo.isCompleted).length;
-                const active = total - completed;
+                if (data.pagination.pages > 1 && Array.isArray(data.tasks)) {
+                    let pageCount = 1;
+                    let todoArray = [];
 
-                setTodoStats({ total, completed, active });
+                    while (pageCount <= data.pagination.pages) {
+                        let nextPageResponse = await fetch(`/api/tasks?page=${pageCount}`)
+                        let nextPageData = await nextPageResponse.json();
+
+                        todoArray = [...nextPageData.tasks, ...todoArray]
+                        pageCount += 1;
+                    }
+
+                    const total = todoArray.length;
+                    const completed = todoArray.filter((todo) => todo.isCompleted).length
+                    const active = total - completed;
+                     
+                    setTodoStats({total, completed, active})
+                } else  if  (Array.isArray(data.tasks)) {
+                    const total = data.tasks.length;
+                    const completed = data.tasks.filter((todo) => todo.isCompleted).length;
+                    const active = total - completed;
+
+                    setTodoStats({ total, completed, active });
+                }
 
             } catch (err) {
                 setError(`Error loading statistics: ${err.message}`);

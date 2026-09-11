@@ -1,23 +1,11 @@
-import { NavLink } from 'react-router';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import {NavLink} from 'react-router';
+import {useAuth} from '../contexts/AuthContext.jsx';
 
 
-function navLinkStyle (isActive) {
-    if (isActive) { 
-
-        return (
-            {
-                fontWeight: 'bold',
-                textDecoration: 'underline',
-            }
-        );
-    } else {
-        return (
-            {
-                fontWeight: 'normal',
-                textDecoration: 'none',
-            }
-        );
+function navLinkStyle ({isActive}) {
+    return {
+        fontWeight: isActive ? 'bold' : 'normal',
+        textDecoration: isActive ? 'underline' : 'none',
     }
 }
 
@@ -29,7 +17,6 @@ export default function Navigation() {
         <nav>
             <ul style={
                 {
-
                     listStyle: 'none',
                     display: 'flex', 
                     gap: '1rem',
@@ -37,21 +24,21 @@ export default function Navigation() {
                 }
             }>
                 <li>
-                    <NavLink to="/about" style={({ isActive }) => navLinkStyle(isActive)}>About</NavLink>
+                    <NavLink to="/about" style={navLinkStyle}>About</NavLink>
                 </li>
                 { isAuthenticated && (
                     <li>
-                        <NavLink to="/todos" style={({ isActive }) => navLinkStyle(isActive)}>Todos</NavLink>
+                        <NavLink to="/todos" style={navLinkStyle}>Todos</NavLink>
                     </li>
                 )}
                 { isAuthenticated && (
                     <li>
-                        <NavLink to="/profile" style={({ isActive }) => navLinkStyle(isActive)}>Profile</NavLink>
+                        <NavLink to="/profile" style={navLinkStyle}>Profile</NavLink>
                     </li>
                 )}
                 { !isAuthenticated && (
                     <li>
-                        <NavLink to="/login" style={({ isActive }) => navLinkStyle(isActive)}>Login</NavLink>
+                        <NavLink to="/login" style={navLinkStyle}>Login</NavLink>
                     </li>
                 )}
             </ul>

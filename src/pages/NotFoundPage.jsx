@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 
 export default function NotFoundPage() {
@@ -12,6 +12,9 @@ export default function NotFoundPage() {
           <p>Use the links below to navigate to different pages:</p>
           <article>
             <b><Link to="/">Return to Home</Link></b>
+          </article>
+          <article>
+            <b><Link to="/about">Go to About</Link></b>
           </article>
           <article>
             <b><Link to="/login">Go to Login</Link></b>

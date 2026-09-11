@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext.jsx'
-import { useNavigate, useLocation } from 'react-router';
+import {useState, useEffect} from 'react';
+import {useAuth} from '../contexts/AuthContext.jsx'
+import {useNavigate, useLocation} from 'react-router';
 
 export default function LoginPage() {
 
@@ -28,7 +28,6 @@ export default function LoginPage() {
 
         if (result.success) {
             setAuthError('');
-            navigate(from, { replace: true });
         } else {
             setAuthError(result.error);
         }

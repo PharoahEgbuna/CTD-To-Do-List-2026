@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import { useAuth } from '../contexts/AuthContext.jsx';
+import {useEffect} from 'react';
+import {useNavigate} from 'react-router';
+import {useAuth} from '../contexts/AuthContext.jsx';
 
 function HomePage() {
   const { isAuthenticated } = useAuth();
