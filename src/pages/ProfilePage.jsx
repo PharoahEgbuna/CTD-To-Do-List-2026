@@ -11,10 +11,15 @@ export default function ProfilePage() {
     useEffect(() => {
 
         async function fetchTodoStats() {
-            if (!token) return;
+            if (!token) {
+                setError('Log in to view profile.');
+                setLoading(false);
+                return;
+            }
+
+            setLoading(true);
 
             try {
-                setLoading(true);
                 setError('');
 
                 const options = {
@@ -37,31 +42,28 @@ export default function ProfilePage() {
 
                 const data = await response.json();
 
-                if (data.pagination.pages > 1 && Array.isArray(data.tasks)) {
-                    let pageCount = 1;
-                    let todoArray = [];
+                let todoArray = [];
 
-                    while (pageCount <= data.pagination.pages) {
-                        let nextPageResponse = await fetch(`/api/tasks?page=${pageCount}`)
-                        let nextPageData = await nextPageResponse.json();
+                if (data.pagination?.pages > 1) {
+                    for (let i = 1; i <= data.pagination.pages; i++) {
+                        const nextPageResponse = await fetch(`/api/tasks?page=${i}`, options)
 
-                        todoArray = [...nextPageData.tasks, ...todoArray]
-                        pageCount += 1;
+                        if (!nextPageResponse.ok) {
+                            throw new Error('Failed to fetch todos');
+                        }
+
+                        const nextPageData = await nextPageResponse.json();
+                        const tasks = Array.isArray(nextPageData.tasks) ? nextPageData.tasks : [];
+                        todoArray.push(...tasks);
                     }
-
-                    const total = todoArray.length;
-                    const completed = todoArray.filter((todo) => todo.isCompleted).length
-                    const active = total - completed;
-                     
-                    setTodoStats({total, completed, active})
-                } else  if  (Array.isArray(data.tasks)) {
-                    const total = data.tasks.length;
-                    const completed = data.tasks.filter((todo) => todo.isCompleted).length;
-                    const active = total - completed;
-
-                    setTodoStats({ total, completed, active });
+                } else {
+                    todoArray = Array.isArray(data.tasks) ? data.tasks : []
                 }
 
+                const total = todoArray.length;
+                const completed = todoArray.filter((todo) => todo.isCompleted).length
+                const active = total - completed;
+                setTodoStats({ total, completed, active });
             } catch (err) {
                 setError(`Error loading statistics: ${err.message}`);
             } finally {
@@ -74,8 +76,8 @@ export default function ProfilePage() {
 
     return (
         <div>
-            {loading && <p>Loading todo stats...</p>}
-            {error && (
+           {loading && <p>Loading todo stats...</p>}
+           {error && (
                 <section>
                     <h2>Error Loading Todo Stats</h2>
                     <p>{`Unable to load todo stats due to the following error: ${error}`}</p>
