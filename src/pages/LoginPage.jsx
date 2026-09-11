@@ -27,8 +27,8 @@ export default function LoginPage() {
         const result = await login(email, password);
 
         if (result.success) {
-            navigate(from, { replace: true });
-            return;
+            // navigate(from, { replace: true });
+            setAuthError('');
         } else {
             setAuthError(result.error);
         }
