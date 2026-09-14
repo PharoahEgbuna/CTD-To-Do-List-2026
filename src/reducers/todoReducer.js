@@ -12,11 +12,21 @@ export const TODO_ACTIONS = {
     COMPLETE_TODO_START: 'COMPLETE_TODO_START',
     COMPLETE_TODO_SUCCESS: 'COMPLETE_TODO_SUCCESS',
     COMPLETE_TODO_ERROR: 'COMPLETE_TODO_ERROR',
+    
+
+    UNCHECK_TODO_START: 'UNCHECK_TODO_START',
+    UNCHECK_TODO_SUCCESS: 'UNCHECK_TODO_SUCCESS',
+    UNCHECK_TODO_ERROR: 'UNCHECK_TODO_ERROR',
 
 
     UPDATE_TODO_START: 'UPDATE_TODO_START',
     UPDATE_TODO_SUCCESS: 'UPDATE_TODO_SUCCESS',
     UPDATE_TODO_ERROR: 'UPDATE_TODO_ERROR',
+
+
+    DELETE_TODO_START: 'DELETE_TODO_START',
+    DELETE_TODO_SUCCESS: 'DELETE_TODO_SUCCESS',
+    DELETE_TODO_ERROR: 'DELETE_TODO_ERROR',
 
 
     SET_SORT: 'SET_SORT',
@@ -39,7 +49,8 @@ export const initialTodoState = {
 };
 
 export function todoReducer(state, action) {
-    switch (action.type) {  
+    switch (action.type) {
+        //Fetch todo cases
         case TODO_ACTIONS.FETCH_START:
             return {
                 ...state,
@@ -89,7 +100,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.ADD_TODO_ERROR:
             return {
                 ...state,
-                todoList: state.todoList.filter(todo => todo.id !== action.payload.id),
+                todoList: state.todoList.filter((todo) => todo.id !== action.payload.id),
                 error: action.payload.error,
             };
 
@@ -97,7 +108,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.COMPLETE_TODO_START:
             return {
                 ...state,
-                todoList: state.todoList.map(todo => todo.id === action.payload.id ?
+                todoList: state.todoList.map((todo) => todo.id === action.payload.id ?
                     {...todo, isCompleted: true} : todo), 
                 error: '',
             };
@@ -111,10 +122,8 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.COMPLETE_TODO_ERROR:
             return {
                 ...state,
-                todoList: state.todoList.map(todo => 
-                    todo.id === action.payload.id ? 
-                    action.payload.rollback : todo
-                ),
+                todoList: state.todoList.map((todo) => 
+                    todo.id === action.payload.id ? action.payload.rollback : todo),
                 error: action.payload.error,
             };
 
@@ -122,7 +131,7 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.UPDATE_TODO_START:
             return {
                 ...state, 
-                todoList: state.todoList.map(todo => todo.id === action.payload.id ?
+                todoList: state.todoList.map((todo) => todo.id === action.payload.id ?
                     {...action.payload.editedTodo} : todo ),
                 error: '',
 
@@ -136,10 +145,52 @@ export function todoReducer(state, action) {
         case TODO_ACTIONS.UPDATE_TODO_ERROR:
             return {
                 ...state, 
-                todoList: state.todoList.map(todo => todo.id === action.payload.id ? 
-                    action.payload.rollback : todo), 
+                todoList: state.todoList.map((todo) => 
+                    todo.id === action.payload.id ? action.payload.rollback : todo), 
                 error: action.payload.error
             };
+
+        //Uncheck Todo Cases
+        case TODO_ACTIONS.UNCHECK_TODO_START:
+            return {
+                ...state,
+                todoList: state.todoList.map(
+                    (todo) => todo.id === action.payload.id ? {...todo, isCompleted: false} : todo),
+                error: '',
+            }
+
+        case TODO_ACTIONS.UNCHECK_TODO_SUCCESS:
+            return {
+                ...state,
+            }
+
+        case TODO_ACTIONS.UNCHECK_TODO_ERROR:
+            return {
+                ...state,
+                todoList: state.todoList.map((todo) => 
+                    todo.id === action.payload.id ? action.payload.rollback : todo),
+                error: action.payload.error,
+            }
+
+        //Delete Todo Cases
+        case TODO_ACTIONS.DELETE_TODO_START:
+            return {
+                ...state,
+                todoList: state.todoList.filter((todo) =>
+                    todo.id !== action.payload.id),
+                error: ''
+            };
+        
+        case TODO_ACTIONS.DELETE_TODO_SUCCESS:
+            return {
+                ...state,
+            }
+        
+        case TODO_ACTIONS.DELETE_TODO_ERROR:
+            return {
+                ...state,
+                todoList: action.payload.rollback,
+            }
 
         //Sorting, Data Version, and Clear Cases 
         case TODO_ACTIONS.SET_SORT:
