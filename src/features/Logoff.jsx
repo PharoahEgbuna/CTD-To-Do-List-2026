@@ -25,10 +25,10 @@ export default function Logoff() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {logoutError ? <p>{logoutError}</p> : null}
-            <button type="submit" disabled={isLoggingOut}>
-                {isLoggingOut ? 'Logging out...' : 'Log Out'}
+        <form onSubmit={ handleSubmit }>
+            { logoutError ? <p>{ logoutError }</p> : null }
+            <button type="submit" disabled={ isLoggingOut }>
+                { isLoggingOut ? 'Logging out...' : 'Log Out' }
             </button>
         </form>
     );

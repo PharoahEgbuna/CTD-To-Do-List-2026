@@ -1,5 +1,5 @@
 
-export default function FilterInput({filterTerm, onFilterChange}) {
+export default function FilterInput({ filterTerm, onFilterChange }) {
 
     function handleFilterChange(event) {
         onFilterChange(event.target.value)

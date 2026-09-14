@@ -1,4 +1,4 @@
-export default function SortBy({sortBy, sortDirection, onSortByChange, onSortDirectionChange}) {
+export default function SortBy({ sortBy, sortDirection, onSortByChange, onSortDirectionChange }) {
     
     function handleOrder (event) {
         onSortDirectionChange(event.target.value);

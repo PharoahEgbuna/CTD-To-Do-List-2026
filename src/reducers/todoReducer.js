@@ -39,7 +39,7 @@ export const initialTodoState = {
 };
 
 export function todoReducer(state, action) {
-    switch (action.type) {  
+    switch (action.type) {
         case TODO_ACTIONS.FETCH_START:
             return {
                 ...state,

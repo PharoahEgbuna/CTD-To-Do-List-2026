@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function ProfilePage() {
 
-    const { email, token, isAuthenticated } = useAuth();
+    const {email, token, isAuthenticated} = useAuth();
     const [todoStats, setTodoStats] = useState({total: 0, completed: 0, active: 0});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -24,7 +24,7 @@ export default function ProfilePage() {
 
                 const options = {
                     method: 'GET',
-                    headers: { 
+                    headers: {
                         'X-CSRF-TOKEN': token,
                     },
                     credentials: 'include',
@@ -47,7 +47,7 @@ export default function ProfilePage() {
                 const completed = todos.filter((todo) => todo.isCompleted).length;
                 const active = total - completed;
 
-                setTodoStats({ total, completed, active });
+                setTodoStats({total, completed, active});
 
             } catch (err) {
                 setError(`Error loading statistics: ${err.message}`);

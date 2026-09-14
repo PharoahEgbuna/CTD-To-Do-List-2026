@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router';
 
 export default function LoginPage() {
 
-    const { login, isAuthenticated } = useAuth();
+    const {login, isAuthenticated} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [email, setEmail] = useState('');
@@ -14,9 +14,9 @@ export default function LoginPage() {
 
     const from = location.state?.from?.pathname || '/todos';
 
-    useEffect(() => { 
+    useEffect(() => {
         if (isAuthenticated) {
-            navigate(from, { replace: true });
+            navigate(from, {replace: true});
         }
     }, [isAuthenticated, navigate, from]);
 
@@ -28,7 +28,7 @@ export default function LoginPage() {
 
         if (result.success) {
             setAuthError('');
-            navigate(from, { replace: true });
+            navigate(from, {replace: true});
         } else {
             setAuthError(result.error);
         }

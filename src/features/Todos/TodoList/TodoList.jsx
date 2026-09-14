@@ -42,7 +42,7 @@ function TodoList({
   };
 
   return filteredTodoList.todos.length === 0 ? (
-    <p>{getEmptyMessage()}</p>
+    <p>{ getEmptyMessage()}</p>
   ) : (
     <ul>
       {filteredTodoList.todos.map((todo) => (

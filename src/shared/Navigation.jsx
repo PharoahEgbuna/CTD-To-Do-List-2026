@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 
 
 function navLinkStyle (isActive) {
-    if (isActive) { 
+    if (isActive) {
 
         return (
             {
@@ -23,7 +23,7 @@ function navLinkStyle (isActive) {
 
 export default function Navigation() {
 
-    const { isAuthenticated } = useAuth();
+    const {isAuthenticated} = useAuth();
 
     return (
         <nav>
@@ -37,21 +37,21 @@ export default function Navigation() {
                 }
             }>
                 <li>
-                    <NavLink to="/about" style={({ isActive }) => navLinkStyle(isActive)}>About</NavLink>
+                    <NavLink to="/about" style={({isActive}) => navLinkStyle(isActive)}>About</NavLink>
                 </li>
-                { isAuthenticated && (
+                {isAuthenticated && (
                     <li>
-                        <NavLink to="/todos" style={({ isActive }) => navLinkStyle(isActive)}>Todos</NavLink>
+                        <NavLink to="/todos" style={({isActive}) => navLinkStyle(isActive)}>Todos</NavLink>
                     </li>
                 )}
-                { isAuthenticated && (
+                {isAuthenticated && (
                     <li>
-                        <NavLink to="/profile" style={({ isActive }) => navLinkStyle(isActive)}>Profile</NavLink>
+                        <NavLink to="/profile" style={({isActive}) => navLinkStyle(isActive)}>Profile</NavLink>
                     </li>
                 )}
-                { !isAuthenticated && (
+                {!isAuthenticated && (
                     <li>
-                        <NavLink to="/login" style={({ isActive }) => navLinkStyle(isActive)}>Login</NavLink>
+                        <NavLink to="/login" style={({isActive}) => navLinkStyle(isActive)}>Login</NavLink>
                     </li>
                 )}
             </ul>
