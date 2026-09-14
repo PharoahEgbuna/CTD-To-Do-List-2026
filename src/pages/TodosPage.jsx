@@ -315,6 +315,47 @@ export default function TodosPage() {
         
     }
 
+    async function deleteTodo(id) {
+        const rollback = [...todoList]
+
+        dispatch (
+            {
+                type: TODO_ACTIONS.DELETE_TODO_START,
+                payload: {id}
+            }
+        );
+
+        try {
+            const response = await fetch(`/api/tasks/${id}`, 
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token,
+                    },
+                    credentials: 'include',
+                }
+            )
+
+            if (!response.ok) {
+                throw new Error('Failed to delete todo.');
+            } else {
+                dispatch({type: TODO_ACTIONS.DELETE_TODO_SUCCESS});
+                invalidateCache();
+            }
+        } catch(e) {
+            dispatch(
+                {
+                    type: TODO_ACTIONS.DELETE_TODO_ERROR,
+                    payload: {
+                        error: `Error: ${e.name} | ${e.message}`,
+                        rollback
+                    }
+                }
+            );
+        }
+    }
+
     return (
     <div>
       {error ? (
@@ -341,7 +382,7 @@ export default function TodosPage() {
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
       <TodoForm onAddTodo={addTodo} />
 
-      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} onUncheckTodo={uncheckTodo} dataVersion={dataVersion} statusFilter={statusFilter} />
+      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} onUncheckTodo={uncheckTodo} onDeleteTodo={deleteTodo} dataVersion={dataVersion} statusFilter={statusFilter} />
       {filterError ? (
         <div>
             <p>{filterError}</p>
