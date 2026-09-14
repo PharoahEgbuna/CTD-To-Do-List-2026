@@ -35,7 +35,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onUncheckTodo, onDele
         }
     }
 
-    function handleDelete(event,id) {
+    function handleDelete(event, id) {
         event.preventDefault();
         onDeleteTodo(id);
         setIsEditing(false);
@@ -47,11 +47,13 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onUncheckTodo, onDele
             {isEditing ? (
                 <>
                 <TextInputWithLabel value={workingTitle} onChange={handleEdit} elementId={`title${todo.id}`} labelText="Todo" />
-                <button type="button" onClick={handleCancel}>Cancel</button>
+                <button type="button" onClick={handleCancel}>
+                    Cancel
+                </button>
                 <button type="submit" onClick={handleUpdate} disabled={!isValidTodoTitle(workingTitle)}>
                     Update
                 </button>
-                <button type ='submit' onClick={() => handleDelete(todo.id)}>
+                <button type ='submit' onClick={(e) => handleDelete(e, todo.id)}>
                     Delete
                 </button>
                 </> 
@@ -66,7 +68,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onUncheckTodo, onDele
                     />
                 </label>
                 <span onClick={() => setIsEditing(true)}>{todo.title}</span>
-                </>
+                </>   
             )}
         </form>
     </li>
