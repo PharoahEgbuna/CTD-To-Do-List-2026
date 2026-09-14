@@ -13,6 +13,9 @@ export const TODO_ACTIONS = {
     COMPLETE_TODO_SUCCESS: 'COMPLETE_TODO_SUCCESS',
     COMPLETE_TODO_ERROR: 'COMPLETE_TODO_ERROR',
 
+    UNCHECK_TODO_START: 'UNCHECK_TODO_START',
+    UNCHECK_TODO_SUCCESS: 'UNCHECK_TODO_SUCCESS',
+    UNCHECK_TODO_ERROR: 'UNCHECK_TODO_ERROR',
 
     UPDATE_TODO_START: 'UPDATE_TODO_START',
     UPDATE_TODO_SUCCESS: 'UPDATE_TODO_SUCCESS',
@@ -40,6 +43,7 @@ export const initialTodoState = {
 
 export function todoReducer(state, action) {
     switch (action.type) {
+        //Fetch todo cases
         case TODO_ACTIONS.FETCH_START:
             return {
                 ...state,
@@ -112,9 +116,7 @@ export function todoReducer(state, action) {
             return {
                 ...state,
                 todoList: state.todoList.map(todo => 
-                    todo.id === action.payload.id ? 
-                    action.payload.rollback : todo
-                ),
+                    todo.id === action.payload.id ? action.payload.rollback : todo),
                 error: action.payload.error,
             };
 
@@ -140,6 +142,28 @@ export function todoReducer(state, action) {
                     action.payload.rollback : todo), 
                 error: action.payload.error
             };
+
+        //Uncheck Todo Cases
+        case TODO_ACTIONS.UNCHECK_TODO_START:
+            return {
+                ...state,
+                todoList: state.todoList.map(
+                    (todo) => todo.id === action.payload.id ? {...todo, isCompleted: false} : todo),
+                error: '',
+            }
+
+        case TODO_ACTIONS.UNCHECK_TODO_SUCCESS:
+            return {
+                ...state,
+            }
+
+        case TODO_ACTIONS.UNCHECK_TODO_ERROR:
+            return {
+                ...state,
+                todoList: state.todoList.map((todo) => 
+                    todo.id === action.payload.id ? action.payload.rollback : todo),
+                error: action.payload.error,
+            }
 
         //Sorting, Data Version, and Clear Cases 
         case TODO_ACTIONS.SET_SORT:

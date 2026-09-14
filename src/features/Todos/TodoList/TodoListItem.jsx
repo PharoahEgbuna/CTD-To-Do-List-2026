@@ -2,7 +2,7 @@ import TextInputWithLabel from '../../../shared/TextInputWithLabel.jsx';
 import { isValidTodoTitle } from '../../../utils/todoValidation.js';
 import { useState } from 'react';
 
-function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
+function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onUncheckTodo}) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [workingTitle, setWorkingTitle] = useState(todo.title);
@@ -20,9 +20,19 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
         if (!isEditing) {
             return;
         }
+        
         event.preventDefault();
+
         onUpdateTodo({...todo, title: workingTitle});
         setIsEditing(false);
+    }
+
+    function handleCheck(event, id) {
+        if (event.target.checked) {
+            onCompleteTodo(id)
+        } else {
+            onUncheckTodo(id);
+        }
     }
 
     return (
@@ -43,7 +53,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
                         type="checkbox"
                         id = {`checkbox${todo.id}`}
                         checked={todo.isCompleted}
-                        onChange={() => onCompleteTodo(todo.id)}
+                        onChange={() => handleCheck(event, todo.id)}
                         />
                 </label>
                 <span onClick={() => setIsEditing(true)}>{todo.title}</span>

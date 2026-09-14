@@ -5,6 +5,7 @@ function TodoList({
   todoList,
   onCompleteTodo,
   onUpdateTodo,
+  onUncheckTodo,
   dataVersion,
   statusFilter = 'all', 
 }) {
@@ -51,6 +52,7 @@ function TodoList({
           todo={todo}
           onCompleteTodo={onCompleteTodo}
           onUpdateTodo={onUpdateTodo}
+          onUncheckTodo = {onUncheckTodo}
         />
       ))}
     </ul>
