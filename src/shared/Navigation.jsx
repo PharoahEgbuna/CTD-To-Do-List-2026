@@ -1,14 +1,16 @@
 import { NavLink } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
-
+import styles from '../styles/Navigation.module.css';
 
 function navLinkStyle (isActive) {
     if (isActive) {
-
         return (
             {
                 fontWeight: 'bold',
                 textDecoration: 'underline',
+                color: 'darkgreen', 
+                fontSize: '1.5rem'
+                
             }
         );
     } else {
@@ -16,6 +18,8 @@ function navLinkStyle (isActive) {
             {
                 fontWeight: 'normal',
                 textDecoration: 'none',
+                color: 'darkgreen',
+                fontSize: '1.5em'
             }
         );
     }
@@ -27,15 +31,7 @@ export default function Navigation() {
 
     return (
         <nav>
-            <ul style={
-                {
-
-                    listStyle: 'none',
-                    display: 'flex', 
-                    gap: '1rem',
-                    padding: 0
-                }
-            }>
+            <ul className={styles.navLinkDisplay}>
                 <li>
                     <NavLink to="/about" style={({isActive}) => navLinkStyle(isActive)}>About</NavLink>
                 </li>
@@ -56,5 +52,5 @@ export default function Navigation() {
                 )}
             </ul>
         </nav>
-    )
+    );
 }

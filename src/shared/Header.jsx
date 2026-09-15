@@ -1,6 +1,7 @@
 import { useAuth } from '../contexts/AuthContext.jsx' 
 import Logoff from '../features/Logoff.jsx';
 import Navigation from './Navigation.jsx';
+import styles from '../styles/Header.module.css';
 
 export default function Header() {
 
@@ -8,7 +9,7 @@ export default function Header() {
     
     return (
         <div> 
-            <h1>Todo List</h1>
+            <h1 className={styles.pageTitle}>Todo List</h1>
             <Navigation/>
             {isAuthenticated && <Logoff/>}
         </div> 
