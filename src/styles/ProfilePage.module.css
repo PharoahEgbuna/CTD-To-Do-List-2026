@@ -1,0 +1,12 @@
+.profilePageDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.profilePageDisplay article > p,
+.profilePageDisplay article > h3 {
+    display: inline;
+    margin-right: 0.5rem;
+}

@@ -1,5 +1,6 @@
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useState, useEffect } from 'react';
+import styles from '../styles/ProfilePage.module.css';
 
 export default function ProfilePage() {
 
@@ -60,7 +61,7 @@ export default function ProfilePage() {
     }, [token]);
 
     return (
-        <div>
+        <div className={styles.profilePageDisplay}>
             {loading && <p>Loading todo stats...</p>}
             {error && (
                 <section>
@@ -79,19 +80,19 @@ export default function ProfilePage() {
                         <div>
                             <h2>Todo Statistics</h2>
                             <article>
-                                <h3>Total Tasks</h3>
+                                <h3>Total Tasks:</h3>
                                 <p>{todoStats.total}</p>
                             </article>
                             <article>
-                                <h3>Completed Tasks</h3>
+                                <h3>Completed Tasks:</h3>
                                 <p>{todoStats.completed}</p>
                             </article>
                             <article>
-                                <h3>Active Tasks</h3>
+                                <h3>Active Tasks:</h3>
                                 <p>{todoStats.active}</p>
                             </article>
                             <article>
-                                <h3>Completion Rate</h3>
+                                <h3>Completion Rate:</h3>
                                 <p>{todoStats.total > 0 ? `${((todoStats.completed / todoStats.total) * 100).toFixed(2)}%` : 'N/A'}</p>
                             </article>
                         </div>

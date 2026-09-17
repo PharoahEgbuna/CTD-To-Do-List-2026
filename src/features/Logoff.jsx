@@ -1,6 +1,7 @@
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import styles from '../styles/Logoff.module.css';
 
 export default function Logoff() {
 
@@ -25,9 +26,9 @@ export default function Logoff() {
     };
 
     return (
-        <form onSubmit={ handleSubmit }>
+        <form onSubmit={ handleSubmit } className={styles.formDisplay}>
             { logoutError ? <p>{ logoutError }</p> : null }
-            <button type="submit" disabled={ isLoggingOut }>
+            <button type="submit" disabled={ isLoggingOut }> 
                 { isLoggingOut ? 'Logging out...' : 'Log Out' }
             </button>
         </form>

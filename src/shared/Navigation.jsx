@@ -8,7 +8,7 @@ function navLinkStyle (isActive) {
             {
                 fontWeight: 'bold',
                 textDecoration: 'underline',
-                color: 'darkgreen', 
+                color: '#E35336', 
                 fontSize: '1.5rem'
                 
             }
@@ -18,7 +18,7 @@ function navLinkStyle (isActive) {
             {
                 fontWeight: 'normal',
                 textDecoration: 'none',
-                color: 'darkgreen',
+                color: '#E35336 ',
                 fontSize: '1.5em'
             }
         );

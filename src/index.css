@@ -1,13 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-    background-color:  #F5DEB3;
+html, body {
+  min-height: 100vh;
+  font-family: 'Crimson Text', sans-serif;
+  background-color:  #F5DEB3;
+  overflow-x: hidden;
 }
 
-body {
-  min-height: 100vh;
+button {
+  min-width: 44px;
+  min-height: 24px;
 }
+
+/* 2. Styles for tablets and small laptops (600px and up)
+@media (min-width: 600px) {
+  body {
+  }
+}
+
+/* 3. Styles for large desktops (1024px and up) */
+/* @media (min-width: 1024px) {
+  body {
+    font-size: 1.25rem;
+  }
+} */

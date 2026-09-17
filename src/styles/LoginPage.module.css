@@ -1,0 +1,10 @@
+.loginPageDisplay {
+    display: grid;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.loginPageDisplay p{
+    display: flex;
+    justify-content: center;
+}

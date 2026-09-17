@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx'
 import { useNavigate, useLocation } from 'react-router';
+import styles from '../styles/LoginPage.module.css';
 
 export default function LoginPage() {
 
@@ -36,8 +37,8 @@ export default function LoginPage() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            {authError ? <p>{authError}</p> : null}
+        <form onSubmit={handleSubmit} className={styles.loginPageDisplay}>
+            {authError ? <p><b>{authError}</b></p> : null}
             <label htmlFor='email'>Enter email:</label>
             <input
                 id = "email"

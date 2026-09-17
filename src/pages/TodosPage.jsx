@@ -8,6 +8,7 @@ import FilterInput from '../shared/FilterInput.jsx';
 import { todoReducer, initialTodoState, TODO_ACTIONS } from '../reducers/todoReducer.js';
 import { useEffect, useCallback, useReducer } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import styles from '../styles/TodoPage.module.css';
 
 
 export default function TodosPage() {
@@ -65,7 +66,7 @@ export default function TodosPage() {
                     );
 
                 } else if (response.status === 401) {
-                    throw new Error(`Unauthorized ${response.statusText}`)
+                    throw new Error(`${response.statusText}`)
                 } else {
                     throw new Error('An error other than unauthorized occured.')
                 }
@@ -357,7 +358,7 @@ export default function TodosPage() {
     }
 
     return (
-    <div>
+    <div className={styles.TodoPageDisplay}>
       {error ? (
         <div>
         <p>{`${error}`}</p> 
@@ -367,17 +368,22 @@ export default function TodosPage() {
 
       {isTodoListLoading ? (<p>{`Loading...`}</p> ) : null}
 
-      <SortBy sortBy={sortBy} onSortByChange={(newSortBy) =>
-        dispatch({
-            type: TODO_ACTIONS.SET_SORT,
-            payload: {newSortBy, sortDirection}
-        })
-      } sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
-        dispatch({
-            type: TODO_ACTIONS.SET_SORT,
-            payload: {newSortDirection, sortBy}
-        })
-      }/>
+      <SortBy 
+        sortBy={sortBy} onSortByChange={(newSortBy) =>
+                dispatch({
+                    type: TODO_ACTIONS.SET_SORT,
+                    payload: {newSortBy, sortDirection}
+                }
+        )} 
+        sortDirection={sortDirection} onSortDirectionChange={(newSortDirection) => 
+            dispatch(
+                {
+                    type: TODO_ACTIONS.SET_SORT,
+                    payload: {newSortDirection, sortBy}
+                }
+            )
+        }
+      />
       <StatusFilter />
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
       <TodoForm onAddTodo={addTodo} />
@@ -385,7 +391,7 @@ export default function TodosPage() {
       <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} onUncheckTodo={uncheckTodo} onDeleteTodo={deleteTodo} dataVersion={dataVersion} statusFilter={statusFilter} />
       {filterError ? (
         <div>
-            <p>{filterError}</p>
+            <b><p>{filterError}</p></b>
             <button onClick={handleFilterError}>Clear Filter Error</button>
             <button onClick={handleReset}>Reset Filters</button>
         </div> 
