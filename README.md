@@ -47,6 +47,7 @@
 
 ## Future Improvement: 
 ### With more time I would deploy my app and find a way to make only the selected todo shift when editing rather than the entire list. 
+### I'd also like to go through with app deployment in the future!
 
 ## License: 
 ### This project is licensed under the MIT License - see the Lincense.txt file for details.
