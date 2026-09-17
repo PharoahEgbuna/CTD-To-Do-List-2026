@@ -18,15 +18,16 @@ button {
   min-height: 24px;
 }
 
-/* 2. Styles for tablets and small laptops (600px and up)
-@media (min-width: 600px) {
+/* Tablet screen styles */
+@media screen and (min-width: 577px) {
   body {
+    font-size: 18px;
   }
 }
 
-/* 3. Styles for large desktops (1024px and up) */
-/* @media (min-width: 1024px) {
+/* Computer screen styles */
+@media screen and (min-width: 992px) {
   body {
-    font-size: 1.25rem;
+    font-size: 20px;
   }
-} */
+} 
