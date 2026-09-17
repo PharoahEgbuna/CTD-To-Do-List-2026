@@ -4,24 +4,29 @@
 
 ## Features: 
 1. Sign In
-2. Add Todos
-3. Update Todos
-4. Delete Todos
-5. Mark Complete
-6. Mark Incomplete
-7. Filter todos via user input and completion status
-8. Sort todos by creation date, alphabetically, ascending, or descending.
-9. Show user authentication status
-10. Show user task completion rate
+2. Logout
+3. Add Todos
+4. Update Todos
+5. Delete Todos
+6. Mark Complete
+7. Mark Incomplete
+8. Filter todos via user input or task completion status
+9. Sort todos by creation date, alphabetically, ascending, or descending.
+11. Navigate to About Page
+12. Navigate to Profile page
+13. Show user authentication status
+14. Show user task completion rate
 
 ## Technologies Used: 
 ### Vite, React, React-DOM, React-Router, JavaScript, JSX, CSS.
 
-## Screenshots: 
+## Screenshots:
+### Desktop Example
 ![Desktop Example](src/assets/DesktopExample.png)
+### iPad Example
 ![ipad Example](src/assets/iPadMiniExample.png)
+### iPhone Example
 ![iPhone Example](src/assets/iPhone16Example.png)
-
 
 ## Getting Started: 
 ### The editor used for this project was Visual Studio Code. 
@@ -36,7 +41,6 @@
 ### `npm run lint`: Searches for typos and bugs across your files
 ### `npm run preview`: Starts a local web server for the last step of product testing before deployment. 
 
-
 ##  Design Decisions: 
 ###  I chose a basic color palettle that that would compliment the black text color the app has has since the first week. 
 ###  I centered all app content to keep the user's gaze at the center of the screen rather than the left side. 
@@ -44,6 +48,7 @@
 ## Future Improvement: 
 ### With more time I would deploy my app and find a way to make only the selected todo shift when editing rather than the entire list. 
 
-## License: N/A 
+## License: 
+### This project is licensed under the MIT License - see the Lincense.txt file for details.
 
-## My Github Link: https://github.com/PharoahEgbuna
+## Contact Information: https://github.com/PharoahEgbuna

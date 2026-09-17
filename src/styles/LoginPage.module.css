@@ -1,10 +1,7 @@
 .loginPageDisplay {
-    display: grid;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.loginPageDisplay p{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 0.5rem
 }

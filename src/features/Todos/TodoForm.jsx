@@ -19,7 +19,7 @@ function TodoForm({ onAddTodo }) {
     };
 
     return (
-        <form onSubmit={handleAddTodo} className={styles.formDisplay}> 
+        <form onSubmit={handleAddTodo} className={styles.TodoFormDisplay}> 
             <TextInputWithLabel
                 ref = { inputRef }
                 value = { workingTodoTitle }

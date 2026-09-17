@@ -1,5 +1,19 @@
-.divDisplay {
+.StatusFilterDisplay {
     display: flex;
     justify-content: center;
     padding-top: 0.3rem;
+}
+
+.StatusFilterDisplay label {
+    margin-right: 0.3rem;
+}
+
+.StatusFilterDisplay select:focus {
+    border-color: #B7410E;  
+    border-width: 0.2rem;
+}
+
+
+.StatusFilterDisplay option:hover {
+    border-color: #B7410E;  
 }

@@ -15,7 +15,7 @@ function StatusFilter() {
   };
 
   return (
-    <div className={styles.divDisplay}>
+    <div className={styles.StatusFilterDisplay}>
       <label htmlFor='statusFilter'>Showing:</label>
       <select
         id='statusFilter'
@@ -24,7 +24,7 @@ function StatusFilter() {
       >
         <option value='all'>All Todos</option>
         <option value='active'>Active Todos</option>
-        <option value='completed'>Completed Todos</option>
+        <option value='completed'>Complete Todos</option>
       </select>
     </div>
   );

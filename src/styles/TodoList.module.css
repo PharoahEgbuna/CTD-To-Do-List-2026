@@ -14,7 +14,7 @@
 }
 
 .todoListDisplay input[type="checkbox"] {
-  accent-color: #B7410E; /* Changes the checked background color */
-  transform: scale(1.2);  /* Optional: Increases the overall size */
+  accent-color: #B7410E;
+  transform: scale(1.2); 
   
 }

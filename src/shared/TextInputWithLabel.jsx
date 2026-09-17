@@ -18,6 +18,7 @@ export default function TextInputWithLabel ({
                 ref={ref}
                 value={value}
                 onChange={onChange}
+                className={styles.TextInputWithLabelDisplay}
             />
         </>
     );

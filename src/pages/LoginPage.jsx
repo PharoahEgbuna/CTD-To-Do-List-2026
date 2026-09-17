@@ -25,19 +25,31 @@ export default function LoginPage() {
         e.preventDefault();
         setIsLoggingOn(true);
 
-        const result = await login(email, password);
+        const formEmail = e.target.email.value;
+        const formPassword = e.target.password.value;
 
-        if (result.success) {
-            setAuthError('');
-            navigate(from, {replace: true});
+        if (!formEmail.trim() || !formPassword.trim()) {
+            console.log('here1')
+            setAuthError('All fields are required.');
+        } else if (password.length < 8) {
+            console.log('here2')
+            setAuthError('Password must be at least 8 characters.');
         } else {
-            setAuthError(result.error);
+            const result = await login(email, password);
+
+            if (result.success) {
+                setAuthError('');
+                navigate(from, {replace: true});
+            } else {
+                setAuthError(result.error);
+            }
         }
+
         setIsLoggingOn(false);
     }
 
     return (
-        <form onSubmit={handleSubmit} className={styles.loginPageDisplay}>
+        <form onSubmit={handleSubmit} className={styles.loginPageDisplay} noValidate>
             {authError ? <p><b>{authError}</b></p> : null}
             <label htmlFor='email'>Enter email:</label>
             <input

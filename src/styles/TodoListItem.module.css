@@ -2,3 +2,12 @@
     margin: 0.5rem;
     padding: 0.2rem;
 }
+
+.todoListItemDisplay span:hover,
+.todoListItemDisplay input:hover{
+    cursor: pointer;
+}
+
+.todoListItemDisplay input:focus {
+    filter: invert(10%);
+}
