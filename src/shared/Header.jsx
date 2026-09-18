@@ -9,7 +9,7 @@ export default function Header() {
     
     return (
         <div> 
-            <h1 className={styles.pageTitle}>Todo List</h1>
+            <h1 className={styles.HeaderDisplay}>Todo List</h1>
             <Navigation/>
             {isAuthenticated && <Logoff/>}
         </div> 

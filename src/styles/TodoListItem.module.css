@@ -1,13 +1,13 @@
-.todoListItemDisplay button {
+.TodoListItemDisplay button {
     margin: 0.5rem;
     padding: 0.2rem;
 }
 
-.todoListItemDisplay span:hover,
-.todoListItemDisplay input:hover{
+.TodoListItemDisplay span:hover,
+.TodoListItemDisplay input:hover{
     cursor: pointer;
 }
 
-.todoListItemDisplay input:focus {
+.TodoListItemDisplay input:focus {
     filter: invert(10%);
 }

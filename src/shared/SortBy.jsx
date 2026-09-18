@@ -12,7 +12,7 @@ export default function SortBy({ sortBy, sortDirection, onSortByChange, onSortDi
     
     
     return (
-        <div className={styles.divDisplay}> 
+        <div className={styles.SortByDisplay}> 
             <label htmlFor='sortBy'>Sort By:</label>
             <select id='sortBy' value={sortBy} onChange={handleSort} >
                 <option value='createdAt'>Created At</option>

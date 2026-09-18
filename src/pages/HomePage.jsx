@@ -16,7 +16,7 @@ function HomePage() {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className={styles.homePageDisplay}>
+    <div className={styles.HomePageDisplay}>
       <p>Redirecting...</p>
     </div>
   );

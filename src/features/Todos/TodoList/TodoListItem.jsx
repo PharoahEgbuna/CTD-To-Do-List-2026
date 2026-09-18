@@ -44,7 +44,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onUncheckTodo, onDele
 
     return (
     <li>
-        <form onSubmit={handleUpdate} className={styles.todoListItemDisplay}>
+        <form onSubmit={handleUpdate} className={styles.TodoListItemDisplay}>
             {isEditing ? (
                 <>
                 <TextInputWithLabel value={workingTitle} onChange={handleEdit} elementId={`title${todo.id}`} labelText="Edit Todo:" />

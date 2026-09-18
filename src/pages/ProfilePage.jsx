@@ -61,7 +61,7 @@ export default function ProfilePage() {
     }, [token]);
 
     return (
-        <div className={styles.profilePageDisplay}>
+        <div className={styles.ProfilePageDisplay}>
             {loading && <p>Loading todo stats...</p>}
             {error && (
                 <section>

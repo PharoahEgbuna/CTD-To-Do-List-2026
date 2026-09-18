@@ -8,7 +8,7 @@ import FilterInput from '../shared/FilterInput.jsx';
 import { todoReducer, initialTodoState, TODO_ACTIONS } from '../reducers/todoReducer.js';
 import { useEffect, useCallback, useReducer } from 'react';
 import { useAuth } from '../contexts/AuthContext.jsx';
-import styles from '../styles/TodoPage.module.css';
+import styles from '../styles/TodosPage.module.css';
 
 
 export default function TodosPage() {
@@ -358,7 +358,7 @@ export default function TodosPage() {
     }
 
     return (
-    <div className={styles.TodoPageDisplay}>
+    <div className={styles.TodosPageDisplay}>
       {error ? (
         <div>
         <p>{`${error}`}</p> 

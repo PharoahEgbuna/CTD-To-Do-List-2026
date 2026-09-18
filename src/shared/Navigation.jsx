@@ -31,7 +31,7 @@ export default function Navigation() {
 
     return (
         <nav>
-            <ul className={styles.navLinkDisplay}>
+            <ul className={styles.NavigationDisplay}>
                 <li>
                     <NavLink to="/about" style={({isActive}) => navLinkStyle(isActive)}>About</NavLink>
                 </li>
