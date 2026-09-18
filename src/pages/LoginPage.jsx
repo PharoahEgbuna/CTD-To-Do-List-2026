@@ -29,10 +29,10 @@ export default function LoginPage() {
         const formPassword = e.target.password.value;
 
         if (!formEmail.trim() || !formPassword.trim()) {
-            console.log('here1')
+            
             setAuthError('All fields are required.');
         } else if (password.length < 8) {
-            console.log('here2')
+           
             setAuthError('Password must be at least 8 characters.');
         } else {
             const result = await login(email, password);

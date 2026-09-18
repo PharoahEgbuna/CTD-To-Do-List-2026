@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import {useMemo} from 'react';
 import TodoListItem from './TodoListItem.jsx';
 import styles from '../../../styles/TodoList.module.css';
 
@@ -40,7 +40,7 @@ function TodoList({
         return 'No active todos. Add a todo above to get started.';
       case 'all':
       default:
-        return 'Add todo above to get started.';
+        return 'No todos have been added yet. Add a todo above to get started.';
     }
   };
 
