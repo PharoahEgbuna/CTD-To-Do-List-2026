@@ -1,47 +1,56 @@
-import {NavLink} from 'react-router';
-import {useAuth} from '../contexts/AuthContext.jsx';
+import { NavLink } from 'react-router';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import styles from '../styles/Navigation.module.css';
 
-
-function navLinkStyle ({isActive}) {
-    return {
-        fontWeight: isActive ? 'bold' : 'normal',
-        textDecoration: isActive ? 'underline' : 'none',
+function navLinkStyle (isActive) {
+    if (isActive) {
+        return (
+            {
+                fontWeight: 'bold',
+                textDecoration: 'underline',
+                color: '#E35336', 
+                fontSize: '1.7rem'
+                
+            }
+        );
+    } else {
+        return (
+            {
+                fontWeight: 'normal',
+                textDecoration: 'none',
+                color: '#E35336 ',
+                fontSize: '1.5em'
+            }
+        );
     }
 }
 
 export default function Navigation() {
 
-    const { isAuthenticated } = useAuth();
+    const {isAuthenticated} = useAuth();
 
     return (
         <nav>
-            <ul style={
-                {
-                    listStyle: 'none',
-                    display: 'flex', 
-                    gap: '1rem',
-                    padding: 0
-                }
-            }>
+            <ul className={styles.NavigationDisplay}>
                 <li>
-                    <NavLink to="/about" style={navLinkStyle}>About</NavLink>
+                    <NavLink to="/about" style={({isActive}) => navLinkStyle(isActive)}>About</NavLink>
                 </li>
-                { isAuthenticated && (
+                {isAuthenticated && (
                     <li>
-                        <NavLink to="/todos" style={navLinkStyle}>Todos</NavLink>
+                        <NavLink to="/todos" style={({isActive}) => navLinkStyle(isActive)}>Todos</NavLink>
                     </li>
                 )}
-                { isAuthenticated && (
+                {isAuthenticated && (
                     <li>
-                        <NavLink to="/profile" style={navLinkStyle}>Profile</NavLink>
+                        <NavLink to="/profile" style={({isActive}) => navLinkStyle(isActive)}>Profile</NavLink>
                     </li>
                 )}
-                { !isAuthenticated && (
+                {!isAuthenticated && (
                     <li>
-                        <NavLink to="/login" style={navLinkStyle}>Login</NavLink>
+                        <NavLink to="/login" style={({isActive}) => navLinkStyle(isActive)}>Login</NavLink>
                     </li>
                 )}
             </ul>
         </nav>
-    )
+    );
 }

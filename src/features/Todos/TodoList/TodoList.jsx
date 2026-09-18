@@ -1,10 +1,13 @@
 import {useMemo} from 'react';
 import TodoListItem from './TodoListItem.jsx';
+import styles from '../../../styles/TodoList.module.css';
 
 function TodoList({
   todoList,
   onCompleteTodo,
   onUpdateTodo,
+  onUncheckTodo,
+  onDeleteTodo,
   dataVersion,
   statusFilter = 'all', 
 }) {
@@ -42,15 +45,17 @@ function TodoList({
   };
 
   return filteredTodoList.todos.length === 0 ? (
-    <p>{getEmptyMessage()}</p>
+    <p className={styles.todoListDisplay}>{ getEmptyMessage()}</p>
   ) : (
-    <ul>
+    <ul className={styles.todoListDisplay}>
       {filteredTodoList.todos.map((todo) => (
         <TodoListItem
           key={todo.id}
           todo={todo}
           onCompleteTodo={onCompleteTodo}
           onUpdateTodo={onUpdateTodo}
+          onUncheckTodo = {onUncheckTodo}
+          onDeleteTodo = {onDeleteTodo}
         />
       ))}
     </ul>

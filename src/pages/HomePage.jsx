@@ -1,6 +1,7 @@
-import {useEffect} from 'react';
-import {useNavigate} from 'react-router';
-import {useAuth} from '../contexts/AuthContext.jsx';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import styles from '../styles/HomePage.module.css';
 
 function HomePage() {
   const { isAuthenticated } = useAuth();
@@ -8,14 +9,14 @@ function HomePage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/todos', { replace: true });
+      navigate('/todos', {replace: true});
     } else {
-      navigate('/login', { replace: true });
+      navigate('/login', {replace: true});
     }
   }, [isAuthenticated, navigate]);
 
   return (
-    <div>
+    <div className={styles.HomePageDisplay}>
       <p>Redirecting...</p>
     </div>
   );

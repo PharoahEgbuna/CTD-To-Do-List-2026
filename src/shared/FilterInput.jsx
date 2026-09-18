@@ -1,14 +1,13 @@
+import styles from '../styles/FilterInput.module.css';
 
-export default function FilterInput({filterTerm, onFilterChange}) {
-
+export default function FilterInput({ filterTerm, onFilterChange }) {
     function handleFilterChange(event) {
         onFilterChange(event.target.value)
-
     }
 
     return (
-        <div>
-            <label htmlFor='filterInput'>Search todos: </label>
+        <div className={styles.filterInputDisplay}>
+            <label htmlFor='filterInput'>Search list: </label>
             <input
             id='filterInput'
             type='text'

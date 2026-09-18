@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: 'Crimson Text', sans-serif;
+  background-color:  #F5DEB3;
+  overflow-x: hidden;
+}
+
+:focus {
+    border-color: #B7410E;  
+    border-width: 0.2rem;
+    outline:none;
+}
+
+input[type="checkbox"]:focus {
+  outline: solid #B7410E;
+  border-radius: 0.1rem;
+}
+
+button {
+  min-width: 44px;
+  min-height: 24px;
+}
+
+/* Tablet screen styles */
+@media screen and (min-width: 577px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Computer screen styles */
+@media screen and (min-width: 992px) {
+  body {
+    font-size: 20px;
+  }
+} 

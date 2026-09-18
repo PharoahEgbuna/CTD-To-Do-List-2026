@@ -1,0 +1,13 @@
+.TodoFormDisplay {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+
+.TodoFormDisplay button {
+    margin-left: 0.5rem;
+}
+
+.TodoFormDisplay *:focus {
+    filter: invert(10%);
+}

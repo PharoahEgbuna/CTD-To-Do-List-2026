@@ -1,9 +1,10 @@
-import {useAuth} from '../contexts/AuthContext.jsx';
-import {useState, useEffect} from 'react';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import { useState, useEffect } from 'react';
+import styles from '../styles/ProfilePage.module.css';
 
 export default function ProfilePage() {
 
-    const { email, token, isAuthenticated } = useAuth();
+    const {email, token, isAuthenticated} = useAuth();
     const [todoStats, setTodoStats] = useState({total: 0, completed: 0, active: 0});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -24,7 +25,7 @@ export default function ProfilePage() {
 
                 const options = {
                     method: 'GET',
-                    headers: { 
+                    headers: {
                         'X-CSRF-TOKEN': token,
                     },
                     credentials: 'include',
@@ -44,21 +45,7 @@ export default function ProfilePage() {
 
                 let todoArray = [];
 
-                if (data.pagination?.pages > 1) {
-                    for (let i = 1; i <= data.pagination.pages; i++) {
-                        const nextPageResponse = await fetch(`/api/tasks?page=${i}`, options)
-
-                        if (!nextPageResponse.ok) {
-                            throw new Error('Failed to fetch todos');
-                        }
-
-                        const nextPageData = await nextPageResponse.json();
-                        const tasks = Array.isArray(nextPageData.tasks) ? nextPageData.tasks : [];
-                        todoArray.push(...tasks);
-                    }
-                } else {
-                    todoArray = Array.isArray(data.tasks) ? data.tasks : []
-                }
+                setTodoStats({total, completed, active});
 
                 const total = todoArray.length;
                 const completed = todoArray.filter((todo) => todo.isCompleted).length
@@ -75,9 +62,9 @@ export default function ProfilePage() {
     }, [token]);
 
     return (
-        <div>
-           {loading && <p>Loading todo stats...</p>}
-           {error && (
+        <div className={styles.ProfilePageDisplay}>
+            {loading && <p>Loading todo stats...</p>}
+            {error && (
                 <section>
                     <h2>Error Loading Todo Stats</h2>
                     <p>{`Unable to load todo stats due to the following error: ${error}`}</p>
@@ -94,19 +81,19 @@ export default function ProfilePage() {
                         <div>
                             <h2>Todo Statistics</h2>
                             <article>
-                                <h3>Total Tasks</h3>
+                                <h3>Total Tasks:</h3>
                                 <p>{todoStats.total}</p>
                             </article>
                             <article>
-                                <h3>Completed Tasks</h3>
+                                <h3>Completed Tasks:</h3>
                                 <p>{todoStats.completed}</p>
                             </article>
                             <article>
-                                <h3>Active Tasks</h3>
+                                <h3>Active Tasks:</h3>
                                 <p>{todoStats.active}</p>
                             </article>
                             <article>
-                                <h3>Completion Rate</h3>
+                                <h3>Completion Rate:</h3>
                                 <p>{todoStats.total > 0 ? `${((todoStats.completed / todoStats.total) * 100).toFixed(2)}%` : 'N/A'}</p>
                             </article>
                         </div>
