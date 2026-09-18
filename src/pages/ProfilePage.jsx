@@ -12,16 +12,16 @@ export default function ProfilePage() {
     useEffect(() => {
 
         async function fetchTodoStats() {
-            if (!token) return;
+            if (!token) {
+                setError('Log in to view profile.');
+                setLoading(false);
+                return;
+            }
+
+            setLoading(true);
 
             try {
-                setLoading(true);
                 setError('');
-
-                const paramsObject = {
-                    limit: 100
-                }
-                const params = new URLSearchParams(paramsObject);
 
                 const options = {
                     method: 'GET',
@@ -31,7 +31,7 @@ export default function ProfilePage() {
                     credentials: 'include',
                 };
 
-                const response = await fetch(`/api/tasks?${params}`, options);
+                const response = await fetch(`/api/tasks`, options);
 
                 if (response.status === 401) {
                     throw new Error('Unauthorized');
@@ -42,14 +42,15 @@ export default function ProfilePage() {
                 }
 
                 const data = await response.json();
-                const todos = data.tasks;
 
-                const total = todos.length;
-                const completed = todos.filter((todo) => todo.isCompleted).length;
-                const active = total - completed;
+                let todoArray = [];
 
                 setTodoStats({total, completed, active});
 
+                const total = todoArray.length;
+                const completed = todoArray.filter((todo) => todo.isCompleted).length
+                const active = total - completed;
+                setTodoStats({ total, completed, active });
             } catch (err) {
                 setError(`Error loading statistics: ${err.message}`);
             } finally {

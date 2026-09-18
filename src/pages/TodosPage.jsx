@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router';
+import {useSearchParams} from 'react-router';
 import StatusFilter from '../shared/StatusFilter';
 import TodoForm from '../features/Todos/TodoForm.jsx' 
 import TodoList from '../features/Todos/TodoList/TodoList.jsx';
@@ -39,7 +39,8 @@ export default function TodosPage() {
                 const paramsObject  ={
                     sortBy,
                     sortDirection,
-                    limit: 100
+                    limit: 100,
+                    status: statusFilter
                 };
 
                 if (debouncedFilterTerm) {
@@ -94,7 +95,7 @@ export default function TodosPage() {
         if (token) {
             fetchTodos();
         }
-    }, [token, sortBy, sortDirection, debouncedFilterTerm]);
+    }, [token, sortBy, sortDirection, debouncedFilterTerm, statusFilter]);
 
 
     const handleFilterChange = ((newTerm) =>

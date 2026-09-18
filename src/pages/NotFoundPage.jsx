@@ -15,6 +15,9 @@ export default function NotFoundPage() {
             <b><Link to="/">Return to Home</Link></b>
           </article>
           <article>
+            <b><Link to="/about">Go to About</Link></b>
+          </article>
+          <article>
             <b><Link to="/login">Go to Login</Link></b>
           </article>
           <article>
