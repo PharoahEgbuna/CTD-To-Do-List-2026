@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route }from 'react-router';
+import {Routes, Route}from 'react-router';
 import Header from './shared/Header.jsx';
 import HomePage from './pages/HomePage.jsx';
 import TodosPage from './pages/TodosPage.jsx';

@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext.jsx'
-import { useNavigate, useLocation } from 'react-router';
-import styles from '../styles/LoginPage.module.css';
+import {useState, useEffect} from 'react';
+import {useAuth} from '../contexts/AuthContext.jsx'
+import {useNavigate, useLocation} from 'react-router';
 
 export default function LoginPage() {
 
-    const {login, isAuthenticated} = useAuth();
+    const { login, isAuthenticated } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [email, setEmail] = useState('');
@@ -15,9 +14,9 @@ export default function LoginPage() {
 
     const from = location.state?.from?.pathname || '/todos';
 
-    useEffect(() => {
+    useEffect(() => { 
         if (isAuthenticated) {
-            navigate(from, {replace: true});
+            navigate(from, { replace: true });
         }
     }, [isAuthenticated, navigate, from]);
 
@@ -25,37 +24,20 @@ export default function LoginPage() {
         e.preventDefault();
         setIsLoggingOn(true);
 
-        const formEmail = e.target.email.value;
-        const formPassword = e.target.password.value;
+        const result = await login(email, password);
 
-        if (!formEmail.trim() || !formPassword.trim()) {
-<<<<<<< HEAD
-            setAuthError('All fields are required.');
-        } else if (password.length < 8) {
-=======
-            
-            setAuthError('All fields are required.');
-        } else if (password.length < 8) {
-           
->>>>>>> a29bee5f5f05bf40757754045f5c00f804a25ad9
-            setAuthError('Password must be at least 8 characters.');
+        if (result.success) {
+            // navigate(from, { replace: true });
+            setAuthError('');
         } else {
-            const result = await login(email, password);
-
-            if (result.success) {
-                setAuthError('');
-                navigate(from, {replace: true});
-            } else {
-                setAuthError(result.error);
-            }
+            setAuthError(result.error);
         }
-
         setIsLoggingOn(false);
     }
 
     return (
-        <form onSubmit={handleSubmit} className={styles.LoginPageDisplay} noValidate>
-            {authError ? <p><b>{authError}</b></p> : null}
+        <form onSubmit={handleSubmit}>
+            {authError ? <p>{authError}</p> : null}
             <label htmlFor='email'>Enter email:</label>
             <input
                 id = "email"

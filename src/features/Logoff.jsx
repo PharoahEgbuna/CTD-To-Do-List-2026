@@ -1,7 +1,6 @@
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import styles from '../styles/Logoff.module.css';
 
 export default function Logoff() {
 
@@ -26,10 +25,10 @@ export default function Logoff() {
     };
 
     return (
-        <form onSubmit={ handleSubmit } className={styles.LogOffDisplay}>
-            { logoutError ? <p>{ logoutError }</p> : null }
-            <button type="submit" disabled={ isLoggingOut }> 
-                { isLoggingOut ? 'Logging out...' : 'Log Out' }
+        <form onSubmit={handleSubmit}>
+            {logoutError ? <p>{logoutError}</p> : null}
+            <button type="submit" disabled={isLoggingOut}>
+                {isLoggingOut ? 'Logging out...' : 'Log Out'}
             </button>
         </form>
     );
