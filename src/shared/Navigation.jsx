@@ -9,8 +9,7 @@ function navLinkStyle (isActive) {
                 fontWeight: 'bold',
                 textDecoration: 'underline',
                 color: '#E35336', 
-                fontSize: '1.7rem'
-                
+                fontSize: '1.5rem',
             }
         );
     } else {
@@ -19,7 +18,7 @@ function navLinkStyle (isActive) {
                 fontWeight: 'normal',
                 textDecoration: 'none',
                 color: '#E35336 ',
-                fontSize: '1.5em'
+                fontSize: '1.5em',
             }
         );
     }

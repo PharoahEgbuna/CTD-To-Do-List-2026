@@ -8,25 +8,40 @@
 
 html, body {
   min-height: 100vh;
+  font-size: 18px;
   font-family: 'Crimson Text', sans-serif;
-  background-color:  #F5DEB3;
+  background-color:  #efcb89;
   overflow-x: hidden;
 }
 
+button {
+  background: none;
+  background-color: rgb(238, 222, 198);
+  padding: 2px;
+  font: inherit;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 24px;
+}
+
+select {
+  font-size: 0.9rem;
+  border: 2px solid #B7410E;
+  font-family: 'Neuton', sans-serif;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+} 
+
 :focus {
-    border-color: #B7410E;  
-    border-width: 0.2rem;
-    outline:none;
+    border-color: black;  
+    border-width: 3px;
+    outline: none;  
 }
 
 input[type="checkbox"]:focus {
-  outline: solid #B7410E;
+  outline: solid black;
   border-radius: 0.1rem;
-}
-
-button {
-  min-width: 44px;
-  min-height: 24px;
 }
 
 /* Tablet screen styles */

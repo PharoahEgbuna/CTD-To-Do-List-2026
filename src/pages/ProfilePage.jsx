@@ -44,12 +44,28 @@ export default function ProfilePage() {
                 const data = await response.json();
 
                 let todoArray = [];
+                
+                //If the data is paginated with more than one page, filter through each page for data and conslidate in TodoArray. Otherwise retrieve data from immediate array. 
+                if (data.pagination?.pages > 1) {
+                    for (let i = 1; i <= data.pagination.pages; i++) {
+                        const nextPageResponse = await fetch(`/api/tasks?page=${i}`, options)
 
-                setTodoStats({total, completed, active});
+                        if (!nextPageResponse.ok) {
+                            throw new Error('Failed to fetch todos');
+                        }
+
+                        const nextPageData = await nextPageResponse.json();
+                        const tasks = Array.isArray(nextPageData.tasks) ? nextPageData.tasks : [];
+                        todoArray.push(...tasks);
+                    }
+                } else {
+                    todoArray = Array.isArray(data.tasks) ? data.tasks : []
+                }
 
                 const total = todoArray.length;
                 const completed = todoArray.filter((todo) => todo.isCompleted).length
                 const active = total - completed;
+
                 setTodoStats({ total, completed, active });
             } catch (err) {
                 setError(`Error loading statistics: ${err.message}`);

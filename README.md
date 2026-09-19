@@ -1,21 +1,21 @@
-# App Title: **To-Do List**
+# Project Title: **To-Do List**. A simple To-do List application allowing users to list nad manage tasks. 
 
-## Description: A simple To-do List App for task management. 
+## Live Demo Link: 
+### https://ctd-to-do-list-2026.vercel.app/
 
 ## Features: 
-1. Sign In
-2. Logout
-3. Add Todos
-4. Update Todos
-5. Delete Todos
-6. Mark Complete
-7. Mark Incomplete
-8. Filter todos via user input or task completion status
+1. Sign In.
+2. Logout.
+3. Add Todos.
+4. Update Todos.
+5. Delete Todos.
+6. Mark and Undo Complete.
+8. Filter todos via user input or task completion status.
 9. Sort todos by creation date, alphabetically, ascending, or descending.
-11. Navigate to About Page
-12. Navigate to Profile page
-13. Show user authentication status
-14. Show user task completion rate
+11. Navigate to About Page.
+12. Navigate to Profile Page.
+13. Show user authentication status.
+14. Show user task completion rate.
 
 ## Technologies Used: 
 ### Vite, React, React-DOM, React-Router, JavaScript, JSX, CSS.
@@ -42,12 +42,13 @@
 ### `npm run preview`: Starts a local web server for the last step of product testing before deployment. 
 
 ##  Design Decisions: 
-###  I chose a basic color palettle that that would compliment the black text color the app has has since the first week. 
-###  I centered all app content to keep the user's gaze at the center of the screen rather than the left side. 
+###  As the current state of my app has a large amount of empty space, I was intnetionabl about choosing a primary color that would be easy on the eyes while also having good, but not overwhelming, contrast with black text. After trying a variety of colors I settled on "efcb89", a Wheat-like shade of beige. 
+### In the same sense of looking for pleasant contrast, I went with "B7410E" for my secondary color, a Rust-like shade of reddish brown. This color is used for the navigation buttons, and for the borders around tab-focused elements. 
+### Because my app content primarily consists of the users task lists, and the task themselves cannot be longer than 50 characters, I thought it would be better to center aligned the contents for desktop users. 
 
 ## Future Improvement: 
-### With more time I would deploy my app and find a way to make only the selected todo shift when editing rather than the entire list. 
-### I'd also like to go through with app deployment in the future!
+### Some things I would approve about the app in the future include: a dark mode feature, a sign up feature, a feature that tracks how often and how quickly users complete their tasks and displays that data
+### the option to set a date/time limit for tasks and notify users via email when that limit nears or has been reached. 
 
 ## License: 
 ### This project is licensed under the MIT License - see the Lincense.txt file for details.
