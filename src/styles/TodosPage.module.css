@@ -7,3 +7,10 @@
     margin: 0.5rem;
     padding: 0.2rem;
 }
+
+
+.TodosPageMessageDisplay {
+    font-size: 1.5rem;
+    background-color: bisque;
+    border-width: 10px;
+}

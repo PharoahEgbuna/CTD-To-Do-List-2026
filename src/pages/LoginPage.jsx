@@ -25,22 +25,26 @@ export default function LoginPage() {
         e.preventDefault();
         setIsLoggingOn(true);
 
-        const formEmail = e.target.email.value;
-        const formPassword = e.target.password.value;
+        const trimmedEmail = e.target.email.value.trim();
+        const trimmedPassword = e.target.password.value.trim();
 
-        if (!formEmail.trim() || !formPassword.trim()) {
+        if (!trimmedEmail || !trimmedPassword) {
             setAuthError('All fields are required.');
-        } else if (password.length < 8) {
+            setIsLoggingOn(false);
+            return;
+        } else if (trimmedPassword.length < 8) {
             setAuthError('Password must be at least 8 characters.');
-        } else {
-            const result = await login(email, password);
+            setIsLoggingOn(false);
+            return;
+        }
 
-            if (result.success) {
-                setAuthError('');
-                navigate(from, {replace: true});
-            } else {
-                setAuthError(result.error);
-            }
+        const result = await login(trimmedEmail, trimmedPassword);
+
+        if (result.success) {
+            setAuthError('');
+            navigate(from, {replace: true});
+        } else {
+            setAuthError(result.error);
         }
 
         setIsLoggingOn(false);
@@ -48,7 +52,7 @@ export default function LoginPage() {
 
     return (
         <form onSubmit={handleSubmit} className={styles.LoginPageDisplay} noValidate>
-            {authError ? <p><b>{authError}</b></p> : null}
+            {authError ? <p><b>{authError}</b>. Please refresh the page or try again later.</p> : null}
             <label htmlFor='email'>Enter email:</label>
             <input
                 id = "email"

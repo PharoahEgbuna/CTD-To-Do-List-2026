@@ -6,7 +6,7 @@
 }
 
 .ProfilePageDisplay article > p,
-.ProfilePageDisplay article > h3 {
+.ProfilePageDisplay  h3 {
     display: inline;
     margin-right: 0.5rem;
 }

@@ -361,13 +361,13 @@ export default function TodosPage() {
     return (
     <div className={styles.TodosPageDisplay}>
       {error ? (
-        <div>
+        <div className={styles.TodosPageMessageDisplay}>
         <p>{`${error}`}</p> 
         <button onClick={handleError}>Clear Error</button>
         </div>) : null 
       }
 
-      {isTodoListLoading ? (<p>{`Loading...`}</p> ) : null}
+      {isTodoListLoading ? (<p className={styles.TodosPageMessageDisplay}>{`Loading...`}</p> ) : null}
 
       <SortBy 
         sortBy={sortBy} onSortByChange={(newSortBy) =>

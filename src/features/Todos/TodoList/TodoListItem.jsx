@@ -51,10 +51,10 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onUncheckTodo, onDele
                 <button type="button" onClick={handleCancel}>
                     Cancel
                 </button>
-                <button type="submit" onClick={handleUpdate} disabled={!isValidTodoTitle(workingTitle)}>
+                <button type="submit" disabled={!isValidTodoTitle(workingTitle)}>
                     Update
                 </button>
-                <button type ='submit' onClick={(e) => handleDelete(e, todo.id)}>
+                <button type ='button' onClick={(e) => handleDelete(e, todo.id)}>
                     Delete
                 </button>
                 </> 

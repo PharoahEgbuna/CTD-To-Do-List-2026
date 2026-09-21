@@ -50,7 +50,6 @@ export const initialTodoState = {
 
 export function todoReducer(state, action) {
     switch (action.type) {
-        //Fetch todo cases
         case TODO_ACTIONS.FETCH_START:
             return {
                 ...state,
@@ -83,7 +82,6 @@ export function todoReducer(state, action) {
                 }
             };
         
-        //Add Todo Cases     
         case TODO_ACTIONS.ADD_TODO_START:
             return {
                 ...state,
@@ -104,7 +102,6 @@ export function todoReducer(state, action) {
                 error: action.payload.error,
             };
 
-        //Complete Todo Cases 
         case TODO_ACTIONS.COMPLETE_TODO_START:
             return {
                 ...state,
@@ -127,7 +124,6 @@ export function todoReducer(state, action) {
                 error: action.payload.error,
             };
 
-        //Update Todo Cases
         case TODO_ACTIONS.UPDATE_TODO_START:
             return {
                 ...state, 
@@ -150,7 +146,6 @@ export function todoReducer(state, action) {
                 error: action.payload.error
             };
 
-        //Uncheck Todo Cases
         case TODO_ACTIONS.UNCHECK_TODO_START:
             return {
                 ...state,
@@ -172,7 +167,6 @@ export function todoReducer(state, action) {
                 error: action.payload.error,
             }
 
-        //Delete Todo Cases
         case TODO_ACTIONS.DELETE_TODO_START:
             return {
                 ...state,
@@ -192,7 +186,6 @@ export function todoReducer(state, action) {
                 todoList: action.payload.rollback,
             }
 
-        //Sorting, Data Version, and Clear Cases 
         case TODO_ACTIONS.SET_SORT:
             if (action.payload.newSortBy) {
                 return {

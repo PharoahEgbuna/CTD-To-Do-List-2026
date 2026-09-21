@@ -11,6 +11,8 @@ export default function ProfilePage() {
 
     useEffect(() => {
 
+        //If the response contains paginate data, filter through each page for data and conslidate in TodoArray. 
+        // Otherwise retrieve data from the initial tasks array. 
         async function fetchTodoStats() {
             if (!token) {
                 setError('Log in to view profile.');
@@ -45,7 +47,6 @@ export default function ProfilePage() {
 
                 let todoArray = [];
                 
-                //If the data is paginated with more than one page, filter through each page for data and conslidate in TodoArray. Otherwise retrieve data from immediate array. 
                 if (data.pagination?.pages > 1) {
                     for (let i = 1; i <= data.pagination.pages; i++) {
                         const nextPageResponse = await fetch(`/api/tasks?page=${i}`, options)
@@ -53,7 +54,7 @@ export default function ProfilePage() {
                         if (!nextPageResponse.ok) {
                             throw new Error('Failed to fetch todos');
                         }
-
+                        
                         const nextPageData = await nextPageResponse.json();
                         const tasks = Array.isArray(nextPageData.tasks) ? nextPageData.tasks : [];
                         todoArray.push(...tasks);
@@ -68,7 +69,7 @@ export default function ProfilePage() {
 
                 setTodoStats({ total, completed, active });
             } catch (err) {
-                setError(`Error loading statistics: ${err.message}`);
+                setError(`${err.message}`);
             } finally {
                 setLoading(false);
             }
@@ -80,14 +81,16 @@ export default function ProfilePage() {
     return (
         <div className={styles.ProfilePageDisplay}>
             {loading && <p>Loading todo stats...</p>}
+            
             {error && (
                 <section>
                     <h2>Error Loading Todo Stats</h2>
-                    <p>{`Unable to load todo stats due to the following error: ${error}`}</p>
+                    <p>{`Unable to load todo stats due to the following error: ${error}.`}</p>
                     <p>Please refresh the page or try again later.</p>
                 </section>
                 )
             }
+
             {!loading && !error && (
                 <div>
                     <h1>Profile</h1>
