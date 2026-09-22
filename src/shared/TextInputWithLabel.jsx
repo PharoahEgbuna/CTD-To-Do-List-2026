@@ -19,6 +19,7 @@ export default function TextInputWithLabel ({
                 value={value}
                 onChange={onChange}
                 className={styles.TextInputWithLabelDisplay}
+                maxLength={50}
             />
         </>
     );

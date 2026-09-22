@@ -10,9 +10,6 @@ export default function ProfilePage() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-
-        //If the response contains paginate data, filter through each page for data and conslidate in TodoArray. 
-        // Otherwise retrieve data from the initial tasks array. 
         async function fetchTodoStats() {
             if (!token) {
                 setError('Log in to view profile.');
@@ -68,6 +65,7 @@ export default function ProfilePage() {
                 const active = total - completed;
 
                 setTodoStats({ total, completed, active });
+                
             } catch (err) {
                 setError(`${err.message}`);
             } finally {
@@ -118,7 +116,8 @@ export default function ProfilePage() {
                         </div>
                     </section>
                 </div>
-            )}
+                )
+            }
         </div>
     );
 }

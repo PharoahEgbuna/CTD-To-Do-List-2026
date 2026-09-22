@@ -13,8 +13,9 @@ export default function FilterInput({ filterTerm, onFilterChange }) {
             type='text'
             value={filterTerm}
             onChange={handleFilterChange}
-            placeholder='Search by title...'>
-            </input>
+            placeholder='Search by title...'
+            maxLength={50}
+            />
         </div>
     );
 }

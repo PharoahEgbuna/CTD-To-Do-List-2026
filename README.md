@@ -1,21 +1,27 @@
-# Project Title: **To-Do List**. A To-do List application allowing users to list and manage tasks. 
+# Project Title: **To-Do List**. A To-do List application allowing users to manage a task list.
+
+## Description: 
+### Users can naviagate through the app using the navigation buttons underneath the app title. The Todos and Profile page require the user to be logged in to be accessed. 
+### Via the Todos page, tasks can be added and marked/unmarked as complete. Clicking on a task allows users to update the tasks' text or remove the task from the list.
+### Also via the Todos page, the todo list can be sorted alphabetically, by creation time, or completion status. 
+### The About page contains a descritpion on how the app works.
+### The Profile page informs users on their authentication status, and shows their todo statistics; the number of tasks complete, incomplete, and the completion ratio.
 
 ## Live Demo Link: 
 ### https://ctd-to-do-list-2026.vercel.app/
 
-## Features: 
-1. Sign In.
-2. Logout.
-3. Add To-dos.
-4. Update To-dos.
-5. Delete To-dos.
-6. Mark and Undo Complete.
-8. Filter to-dos via user input or task completion status.
-9. Sort to-dos by creation date, alphabetically, ascending, or descending.
-11. Navigate to About Page.
-12. Navigate to Profile Page.
-13. Show user authentication status.
-14. Show user task completion rate.
+## Features List: 
+- Sign In.
+- Logout.
+- Add tasks.
+- Update tasks.
+- Delete tasks.
+- Mark tasks complete / unmark complete.
+- Filter tasks via user input and task completion status.
+- Sort to-dos by creation date, alphabetically, ascending, or descending.
+- Page navigationn to About Page, Profile Page, and Todos Page. 
+- Show user authentication status.
+- Show user task completion percentage.
 
 ## Technologies Used: 
 ### Vite, React, React-DOM, React-Router, JavaScript, JSX, & CSS.
@@ -28,12 +34,15 @@
 ### iPhone Example
 ![iPhone Example](src/assets/iPhone16Example.png)
 
-## Getting Started: 
-### The editor used for this project was Visual Studio Code. 
-### Begin by scaffolding a Vite project with a React template by running the following command in the terminal: `npx create-vite@latest --template react .`
-### Install dependencies by running the command  `npm install`.
-### Next, use the command  `npm install react-router` to install version 7 of React Router. 
-### Lastly, run the development server by entering the following command in the terminal: `npm run dev`. Hold control while clicking the localhost link provided in the terminal to interact with the application. 
+## Getting Started (Project Prerequisites): 
+### Before running this project, install the following: 
+- Install React version 19.2.1 using the following command in the terminal: `npm install react@19.2.7`
+- Install React-DOM, version 19.2.7, using the following commnand in the terminal: `npm install react-dom@19.2.7`
+- Install React-Router version 7.19.3 using the following command in the terminal: `npm install react-router@7.19.3`
+### Alternatively (using Vite framework)
+- Scaffold a Vite project using its React template, which automatically includes the react-dom version included in the template: `npx create-vite@latest --template react .` 
+- Run `npm run install` in the terminal to install all dependencies listed in the package.json file provided by template.
+- Install React-Router version 7.19.3 using the following command in the terminal: `npm install react-router@7.19.3`.
 
 ## Available Scripts:
 ### `npm run dev`: Starts the application in a local development environment.
@@ -43,21 +52,21 @@
 
 ##  Design Decisions: 
 ### I chose the CSS module approach for styling to avoid potential naming conflicts as I styled my many components.  
-### As the current state of my app doesn't permit tasks to be longer than 50 characters, I chose to center my content on the screen for desktop users for better visual appeal.
-### I chose a background color that would be easy on the eyes seeing as it would be the most prominent color on the screen. I settled on "efcb89", a shade of beige. 
+### As tasks cannot be longer than 50 characters, I chose to make the app content centered for desktop users to draw attention to the center of the screen. 
+### For the background color I settled on "efcb89", a shade of beige, that is easy on the eyes as it will encompass the overall page. 
 ### I chose a complimentary shade of brown for my secondary color to be used to color the navigation buttons and to fr the border of tab-focused elements.
 ### For the font I looked for something non-standard but still easily readable. I chose 'Crimson-Text' for header text throguhout the app and 'Neuton' for dropdown menus. 
 ### Sans-serif is used as a backup fro browsers that lack either of the chosen fonts. 
 
-## Future Improvement: 
-### Some things I would improve about the app in the future include: 
+## Future Improvements: 
+### Some things I would improve about the app in the future: 
 1. A Dark mode feature
 2. A Sign up feature
 3. Add a Retry button for when errors occur
 4. Add a feature to the Profile page that tracks how often quickly users complete their tasks on time and displays that data
 5. Add a feature that allows users to set a date/time that tasks should be completed by. In addition, notify users when that limit nears. 
 
-## License: 
+## License Information: 
 ### This project is licensed under the MIT License - see the License.txt file for details.
 
 ## Contact Information: https://github.com/PharoahEgbuna
