@@ -1,4 +1,11 @@
 .TodoListItemDisplay button {
+    background-color: #c68f8a;
+    border-style: outset;
+    border-color: #c35023;
+    font: inherit;
+    cursor: pointer;
+    min-width: 44px;
+    min-height: 25px;
     margin: 0.5rem;
     padding: 0.2rem;
 }
@@ -8,6 +15,12 @@
     cursor: pointer;
 }
 
-.TodoListItemDisplay input:focus {
-    filter: invert(10%);
+.TodoListItemDisplay input:focus, button:focus{
+    border: 2px solid #c35023;
+    outline: none;
+}
+
+.TodoListItemDisplay input[type="checkbox"]:focus-visible {
+  outline: 2px solid #c35023; 
+  outline-offset: 2px; 
 }

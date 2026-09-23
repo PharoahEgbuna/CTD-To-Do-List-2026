@@ -1,13 +1,13 @@
-import {useSearchParams} from 'react-router';
+import { useSearchParams } from 'react-router';
+import { todoReducer, initialTodoState, TODO_ACTIONS } from '../reducers/todoReducer.js';
+import { useEffect, useCallback, useReducer } from 'react';
+import { useAuth } from '../contexts/AuthContext.jsx';
 import StatusFilter from '../shared/StatusFilter';
 import TodoForm from '../features/Todos/TodoForm.jsx' 
 import TodoList from '../features/Todos/TodoList/TodoList.jsx';
 import SortBy from '../shared/SortBy.jsx';
 import useDebounce from '../utils/useDebounce.js';
 import FilterInput from '../shared/FilterInput.jsx';
-import { todoReducer, initialTodoState, TODO_ACTIONS } from '../reducers/todoReducer.js';
-import { useEffect, useCallback, useReducer } from 'react';
-import { useAuth } from '../contexts/AuthContext.jsx';
 import styles from '../styles/TodosPage.module.css';
 
 
@@ -361,13 +361,13 @@ export default function TodosPage() {
     return (
     <div className={styles.TodosPageDisplay}>
       {error ? (
-        <div>
+        <div className={styles.TodosPageMessageDisplay}>
         <p>{`${error}`}</p> 
         <button onClick={handleError}>Clear Error</button>
         </div>) : null 
       }
 
-      {isTodoListLoading ? (<p>{`Loading...`}</p> ) : null}
+      {isTodoListLoading ? (<p className={styles.TodosPageMessageDisplay}>{`Loading...`}</p> ) : null}
 
       <SortBy 
         sortBy={sortBy} onSortByChange={(newSortBy) =>
@@ -388,15 +388,23 @@ export default function TodosPage() {
       <StatusFilter />
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}/>
       <TodoForm onAddTodo={addTodo} />
+      <TodoList
+        todoList={todoList} 
+        onCompleteTodo = {completeTodo} 
+        onUpdateTodo = {updateTodo} 
+        onUncheckTodo={uncheckTodo} 
+        onDeleteTodo={deleteTodo} 
+        dataVersion={dataVersion} 
+        statusFilter={statusFilter}
+       />
 
-      <TodoList todoList={todoList} onCompleteTodo = {completeTodo} onUpdateTodo = {updateTodo} onUncheckTodo={uncheckTodo} onDeleteTodo={deleteTodo} dataVersion={dataVersion} statusFilter={statusFilter} />
       {filterError ? (
         <div>
             <b><p>{filterError}</p></b>
             <button onClick={handleFilterError}>Clear Filter Error</button>
             <button onClick={handleReset}>Reset Filters</button>
         </div> 
-      ) : null}
+        ) : null}
     </div>
     );
 }

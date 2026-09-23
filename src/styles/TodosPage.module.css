@@ -4,6 +4,13 @@
 }
 
 .TodosPageDisplay div > button {
-    margin: 0.5rem;
+    margin: 0 auto;
     padding: 0.2rem;
+}
+
+.TodosPageMessageDisplay {
+    font-size: 1.5rem;
+    background-color: #deafac;
+    color: #c35023;
+    border-width: 10px;
 }

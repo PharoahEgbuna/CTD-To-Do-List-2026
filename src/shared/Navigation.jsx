@@ -4,24 +4,9 @@ import styles from '../styles/Navigation.module.css';
 
 function navLinkStyle (isActive) {
     if (isActive) {
-        return (
-            {
-                fontWeight: 'bold',
-                textDecoration: 'underline',
-                color: '#E35336', 
-                fontSize: '1.7rem'
-                
-            }
-        );
+        return styles.isActive;
     } else {
-        return (
-            {
-                fontWeight: 'normal',
-                textDecoration: 'none',
-                color: '#E35336 ',
-                fontSize: '1.5em'
-            }
-        );
+        return styles.notActive;
     }
 }
 
@@ -33,21 +18,21 @@ export default function Navigation() {
         <nav>
             <ul className={styles.NavigationDisplay}>
                 <li>
-                    <NavLink to="/about" style={({isActive}) => navLinkStyle(isActive)}>About</NavLink>
+                    <NavLink to="/about" className={({isActive}) => navLinkStyle(isActive)}>About</NavLink>
                 </li>
                 {isAuthenticated && (
                     <li>
-                        <NavLink to="/todos" style={({isActive}) => navLinkStyle(isActive)}>Todos</NavLink>
+                        <NavLink to="/todos" className={({isActive}) => navLinkStyle(isActive)}>Todos</NavLink>
                     </li>
                 )}
                 {isAuthenticated && (
                     <li>
-                        <NavLink to="/profile" style={({isActive}) => navLinkStyle(isActive)}>Profile</NavLink>
+                        <NavLink to="/profile" className={({isActive}) => navLinkStyle(isActive)}>Profile</NavLink>
                     </li>
                 )}
                 {!isAuthenticated && (
                     <li>
-                        <NavLink to="/login" style={({isActive}) => navLinkStyle(isActive)}>Login</NavLink>
+                        <NavLink to="/login" className={({isActive}) => navLinkStyle(isActive)}>Login</NavLink>
                     </li>
                 )}
             </ul>

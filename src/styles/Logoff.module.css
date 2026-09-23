@@ -1,10 +1,25 @@
 .LogOffDisplay {
     display:flex;
     justify-content: center;
-    align-items: center;
 }
 
 .LogOffDisplay button {
-    margin: 0.5rem;
-    padding: 0.2rem;
+    background-color: #deafac;
+    border-width: 5px;
+    border-style: double;
+    border-color: #c35023;
+    font: inherit;
+    cursor: pointer;
+    margin: 2px;
+    padding: 2px;
+    gap: 2px;
+    min-width: 44px;
+    min-height: 25px;
+}
+
+.LogOffDisplay button:hover,
+button:focus {
+    border-style: solid;
+    cursor: pointer;
+    color: #ffffff;
 }

@@ -10,7 +10,6 @@ export default function ProfilePage() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-
         async function fetchTodoStats() {
             if (!token) {
                 setError('Log in to view profile.');
@@ -44,15 +43,31 @@ export default function ProfilePage() {
                 const data = await response.json();
 
                 let todoArray = [];
+                
+                if (data.pagination?.pages > 1) {
+                    for (let i = 1; i <= data.pagination.pages; i++) {
+                        const nextPageResponse = await fetch(`/api/tasks?page=${i}`, options)
 
-                setTodoStats({total, completed, active});
+                        if (!nextPageResponse.ok) {
+                            throw new Error('Failed to fetch todos');
+                        }
+                        
+                        const nextPageData = await nextPageResponse.json();
+                        const tasks = Array.isArray(nextPageData.tasks) ? nextPageData.tasks : [];
+                        todoArray.push(...tasks);
+                    }
+                } else {
+                    todoArray = Array.isArray(data.tasks) ? data.tasks : []
+                }
 
                 const total = todoArray.length;
                 const completed = todoArray.filter((todo) => todo.isCompleted).length
                 const active = total - completed;
+
                 setTodoStats({ total, completed, active });
+                
             } catch (err) {
-                setError(`Error loading statistics: ${err.message}`);
+                setError(`${err.message}`);
             } finally {
                 setLoading(false);
             }
@@ -63,15 +78,17 @@ export default function ProfilePage() {
 
     return (
         <div className={styles.ProfilePageDisplay}>
-            {loading && <p>Loading todo stats...</p>}
+            {loading && <p className={styles.ProfilePageLoadingDisplay}>Loading todo stats...</p>}
+            
             {error && (
                 <section>
                     <h2>Error Loading Todo Stats</h2>
-                    <p>{`Unable to load todo stats due to the following error: ${error}`}</p>
+                    <p>{`Unable to load todo stats due to the following error: ${error}.`}</p>
                     <p>Please refresh the page or try again later.</p>
                 </section>
                 )
             }
+
             {!loading && !error && (
                 <div>
                     <h1>Profile</h1>
@@ -99,7 +116,8 @@ export default function ProfilePage() {
                         </div>
                     </section>
                 </div>
-            )}
+                )
+            }
         </div>
     );
 }

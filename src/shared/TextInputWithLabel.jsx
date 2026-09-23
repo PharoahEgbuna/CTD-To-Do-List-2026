@@ -9,7 +9,7 @@ export default function TextInputWithLabel ({
 }) {
     return (
         <>
-            <label htmlFor={elementId} className={styles.TextInputWithLabelDisplay}>
+            <label htmlFor={elementId} className={styles.TextInputLabel}>
                 {labelText}
             </label>
             <input
@@ -18,7 +18,8 @@ export default function TextInputWithLabel ({
                 ref={ref}
                 value={value}
                 onChange={onChange}
-                className={styles.TextInputWithLabelDisplay}
+                className={styles.TextInputDisplay}
+                maxLength={50}
             />
         </>
     );

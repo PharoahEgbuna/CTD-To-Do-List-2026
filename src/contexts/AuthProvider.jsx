@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
         }
     } catch {
         return {
-            success: false, error: 'Network error during login'   
+            success: false, error: 'Network error during login.'   
         };
     }
   };
@@ -45,7 +45,6 @@ export function AuthProvider({ children }) {
     }
 
     try {
-
         const options = {
             method: 'POST',
             headers: {
@@ -63,14 +62,13 @@ export function AuthProvider({ children }) {
           return {success: true}
         
         } else {
-
           setEmail('');
           setToken('');
+
           return {
             success: false,
             error: 'Logout failed'
           } 
-        
         } 
     } catch {
       return {
@@ -79,7 +77,7 @@ export function AuthProvider({ children }) {
       };
     }
   }
-  // Context value object
+  
   const value = {
     email,
     token,

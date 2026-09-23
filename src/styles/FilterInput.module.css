@@ -1,6 +1,17 @@
 .filterInputDisplay {
     display: flex;
     justify-content: center;
+    font: inherit;
     padding-top: 0.6rem;
     gap: 0.3rem;
+}
+
+.filterInputDisplay input {
+    border-color: none;
+    padding: 5px;
+    outline: none;
+}
+
+.filterInputDisplay input:hover, input:focus{
+    border: 2px solid #c35023;
 }

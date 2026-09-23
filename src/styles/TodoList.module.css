@@ -4,6 +4,12 @@
     list-style-type: none;
 }
 
+.todoListMessage {
+    text-decoration: underline;
+    background-color: #deafac;
+    color: #c35023;
+}
+
 .todoListDisplay li {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -14,7 +20,6 @@
 }
 
 .todoListDisplay input[type="checkbox"] {
-  accent-color: #B7410E;
-  transform: scale(1.2); 
-  
+  accent-color: #c35023;
+  transform: scale(1.2);  
 }

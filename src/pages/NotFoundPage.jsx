@@ -12,16 +12,16 @@ export default function NotFoundPage() {
           <h2>Navigate App</h2>
           <p>Use the links below to navigate to different pages:</p>
           <article>
-            <b><Link to="/">Return to Home</Link></b>
+            <b><Link to="/" className={styles.LinkDisplay}>Return to Home</Link></b>
           </article>
           <article>
-            <b><Link to="/about">Go to About</Link></b>
+            <b><Link to="/about"  className={styles.LinkDisplay}>Go to About</Link></b>
           </article>
           <article>
-            <b><Link to="/login">Go to Login</Link></b>
+            <b><Link to="/login"  className={styles.LinkDisplay}>Go to Login</Link></b>
           </article>
           <article>
-            <b><Link to="/profile">Go to Profile</Link></b>
+            <b><Link to="/profile"  className={styles.LinkDisplay}>Go to Profile</Link></b>
           </article>
         </div>
       </section>

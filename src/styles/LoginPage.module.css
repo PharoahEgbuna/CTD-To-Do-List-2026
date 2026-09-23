@@ -1,7 +1,29 @@
 .LoginPageDisplay {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 0.5rem
+    gap: 0.5rem;
+}
+
+.LoginPageDisplay button {
+  background-color: #c68f8a;
+  border-width: 5px;
+  border-style: double;
+  border-color: #c35023;    
+  padding: 2px;
+  font: inherit;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 25px;
+}
+
+.LoginPageDisplay button:hover,
+button:focus {
+    border-style: solid;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.LoginPageDisplay p {
+    justify-content: center;
 }
