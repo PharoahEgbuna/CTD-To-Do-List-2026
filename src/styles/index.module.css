@@ -14,8 +14,7 @@ html, body {
   overflow-x: hidden;
 }
 
-h2, h3 {
-  font-size: 16px;
+h1 h2, h3 {
   font-weight: 700;
 }
 
