@@ -1,13 +1,27 @@
 .TodoFormDisplay {
     display: flex;
     justify-content: center;
-    padding-top: 0.5rem;
+    font: inherit;
+    padding-top: 0.6rem;
+    gap: 0.3rem;
 }
 
 .TodoFormDisplay button {
-    margin-left: 0.5rem;
+  background-color: #c68f8a;
+  border-width: 5px;
+  border-style: outset;
+  border-color: #c35023;
+  font: inherit;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 25px;
 }
 
-.TodoFormDisplay *:focus {
-    filter: invert(10%);
+.TodoFormDisplay button:not(:disabled) {
+  color: #ffffff;
+}
+
+.TextInputDisplay input:hover, input:focus{
+    border: 2px solid #c35023;
+    outline: none;
 }

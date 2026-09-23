@@ -1,5 +1,6 @@
 .aboutPageDisplay {
     display: grid;
+    font: inherit;
 }
 
 .aboutPageDisplay h1 {

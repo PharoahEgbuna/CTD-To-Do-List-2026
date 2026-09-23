@@ -2,5 +2,21 @@
     display: flex;
     justify-content: center;
     padding-top: 0.6rem;
+    font: inherit;
     gap: 0.3rem;
+}
+
+.SortByDisplay select option {
+    border-color: none;
+    border-radius: 4px;
+    padding: 5px;
+    outline: none;
+    background-color: #c35023;
+    color: #ffffff;
+}
+
+.SortByDisplay select:hover, select:focus{
+    cursor: pointer;
+    border: 2px solid #c35023;
+    outline: none;
 }

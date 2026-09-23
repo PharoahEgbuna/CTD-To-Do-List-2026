@@ -8,8 +8,8 @@ export default function Header() {
     const { isAuthenticated } = useAuth();
     
     return (
-        <div> 
-            <h1 className={styles.HeaderDisplay}>Todo List</h1>
+        <div className={styles.HeaderDisplay}> 
+            <h1>Todo List</h1>
             <Navigation/>
             {isAuthenticated && <Logoff/>}
         </div> 

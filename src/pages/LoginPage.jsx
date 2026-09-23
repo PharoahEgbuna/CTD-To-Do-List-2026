@@ -52,7 +52,7 @@ export default function LoginPage() {
 
     return (
         <form onSubmit={handleSubmit} className={styles.LoginPageDisplay} noValidate>
-            {authError ? <p><b>{authError}</b>. Please refresh the page or try again later.</p> : null}
+            {authError ? <p><b>{authError}</b></p> : null}
             <label htmlFor='email'>Enter email:</label>
             <input
                 id = "email"

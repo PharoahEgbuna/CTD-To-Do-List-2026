@@ -78,7 +78,7 @@ export default function ProfilePage() {
 
     return (
         <div className={styles.ProfilePageDisplay}>
-            {loading && <p>Loading todo stats...</p>}
+            {loading && <p className={styles.ProfilePageLoadingDisplay}>Loading todo stats...</p>}
             
             {error && (
                 <section>

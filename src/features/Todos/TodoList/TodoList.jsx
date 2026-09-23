@@ -45,7 +45,7 @@ function TodoList({
   };
 
   return filteredTodoList.todos.length === 0 ? (
-    <p className={styles.todoListDisplay}>{ getEmptyMessage() }</p>
+    <p className={styles.todoListMessage}>{ getEmptyMessage() }</p>
   ) : (
     <ul className={styles.todoListDisplay}>
       {filteredTodoList.todos.map((todo) => (

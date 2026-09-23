@@ -1,12 +1,28 @@
 .ProfilePageDisplay {
-    display: flex;
-    align-items: center;
+    display: grid;
+    place-items: center;
     justify-content: center;
+    font: inherit;
     font-size: 1.2rem;
+}
+
+.ProfilePageDisplay h1 {
+    margin: 0 auto;
+}
+
+.ProfilePageLoadingDisplay  {
+    background-color: #deafac;
+    color: #c35023;
 }
 
 .ProfilePageDisplay article > p,
 .ProfilePageDisplay  h3 {
     display: inline;
     margin-right: 0.5rem;
+}
+
+.ProfilePageDisplay section > p {
+    background-color: #deafac;
+    color: #c35023;
+    text-decoration: underline;
 }
